@@ -37,7 +37,7 @@ return [
 
         'sqlite_testing' => [
           'driver'   => 'sqlite',
-          'database' => ':memory:', // SQLiteのインメモリ機能を使用
+          'database' => ':memory:',
           'prefix'   => '',
         ],
 
