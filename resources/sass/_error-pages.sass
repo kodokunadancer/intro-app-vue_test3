@@ -1,0 +1,32 @@
+.not-found-error
+  padding-top: 100px
+  @include error-pages
+
+.permission-error
+  padding-top: 100px
+  @include error-pages
+
+.system-error
+  padding-top: 100px
+  @include error-pages
+
+.authentication-error
+  padding-top: 100px
+  @include error-pages
+
+@include sm
+  .not-found-error
+    padding-top: 30px
+    @include error-pages-sm
+
+  .permission-error
+    padding-top: 30px
+    @include error-pages-sm
+
+  .system-error
+    padding-top: 30px
+    @include error-pages-sm
+
+  .authentication-error
+    padding-top: 30px
+    @include error-pages-sm

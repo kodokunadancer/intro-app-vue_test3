@@ -1,0 +1,102 @@
+//グループ編集
+.edit-group
+  .loading
+  .form
+    margin: 0 auto
+    width: 50%
+    .tittle
+      @include tittle(20px, 50px)
+    .errors
+      text-align: center
+      .errors__list
+        .errors__item
+    .form-photo
+      .form-photo__input
+      .form-photo__output--true
+        position: relative
+        &::before
+          content: ''
+          padding-top: 100%
+          display: block
+        img
+          position: absolute
+          width: 100%
+          height: 100%
+          top: 0
+          left: 0
+          object-fit: cover
+      .form-photo__output--false
+        .form-photo-img
+          position: relative
+          &::before
+            content: ''
+            padding-top: 100%
+            display: block
+          img
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            object-fit: cover
+    .form-text
+      .form-text__label
+        display: block
+        font-size: 16px
+        margin-top: 40px
+      .form-text__input
+        display: block
+        width: 280px
+        height: 40px
+
+@include sm
+  .edit-group
+    .loading
+    .form
+      margin: 0 auto
+      width: 100%
+      .tittle
+        @include tittle(17px, 40px)
+      .errors
+        text-align: center
+        .errors__list
+          .errors__item
+      .form-photo
+        .form-photo__input
+          width: 100%
+        .form-photo__output--true
+          position: relative
+          &::before
+            content: ''
+            padding-top: 100%
+            display: block
+          img
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            object-fit: cover
+        .form-photo__output--false
+          .form-photo-img
+            position: relative
+            &::before
+              content: ''
+              padding-top: 100%
+              display: block
+            img
+              position: absolute
+              width: 100%
+              height: 100%
+              top: 0
+              left: 0
+              object-fit: cover
+      .form-text
+        .form-text__label
+          display: block
+          font-size: 16px
+          margin-top: 40px
+        .form-text__input
+          display: block
+          width: 80%
+          height: 35px

@@ -1,0 +1,36 @@
+.success-messages
+  @include tittle(20px, 50px)
+  background: #D7F9EE
+  border: 1px solid #41e2b2
+  border-radius: .25rem
+  color: #117355
+  margin-bottom: 1.5rem
+  padding: 1rem
+
+.error-messages
+  @include tittle(20px, 50px)
+  background: #ffb5b3
+  border: 1px solid #ff6e66
+  border-radius: .25rem
+  color: #ff3a33
+  margin-bottom: 1.5rem
+  padding: 1rem
+
+@include sm
+  .success-messages
+    @include tittle(15px, 40px)
+    background: #D7F9EE
+    border: 1px solid #41e2b2
+    border-radius: .25rem
+    color: #117355
+    margin-bottom: 1.5rem
+    padding: 1rem
+
+  .error-messages
+    @include tittle(15px, 40px)
+    background: #ffb5b3
+    border: 1px solid #ff6e66
+    border-radius: .25rem
+    color: #ff3a33
+    margin-bottom: 1.5rem
+    padding: 1rem

@@ -1,0 +1,99 @@
+//他プロフィール
+.profile-wrapper
+  width: 100%
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+  .profile
+    text-align: center
+    padding: 50px 50px 50px
+    width: 50%
+    box-sizing: border-box
+    .profile-top
+      margin: 0 0 20px 0
+      .force-btn
+        font-size: 14px
+        border-radius: 25px
+        border: 1px solid #c7004c
+        background: #c7004c
+        color: #fff
+        padding: 7px 20px
+        margin-left: 60%
+        width: 120px
+    .profile-panel-link
+      @include a-btn
+      &:hover
+        opacity: 0.6
+      .profile-panel
+        .profile-panel__photo
+          margin-bottom: 20px
+          position: relative
+          &::before
+            content: ''
+            padding-top: 100%
+            display: block
+          img
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            object-fit: cover
+        .profile-panel__name
+          text-align: center
+          font-size: 18px
+          font-weight: bold
+          margin-bottom: 20px
+        .profile-panel__introduction
+          text-align: left
+          font-size: 18px
+
+@include sm
+  .profile-wrapper
+    display: block
+    .profile
+      padding: 50px 0 0 0
+      width: 100%
+      margin-top: 50px
+      border-top: 1px solid #ddd
+      .profile-top
+        margin: 0 0 20px 0
+        .force-btn
+          font-size: 13px
+          border-radius: 25px
+          border: 1px solid #c7004c
+          background: #c7004c
+          color: #fff
+          padding: 7px 20px
+          margin-left: 60%
+          width: 100px
+      .profile-panel-link
+        @include a-btn
+        &:hover
+          opacity: 0.6
+        .profile-panel
+          .profile-panel__photo
+            margin-bottom: 20px
+            position: relative
+            &::before
+              content: ''
+              padding-top: 100%
+              display: block
+            img
+              position: absolute
+              width: 100%
+              height: 100%
+              top: 0
+              left: 0
+              object-fit: cover
+          .profile-panel__name
+            text-align: center
+            font-size: 16px
+            font-weight: bold
+            margin-bottom: 20px
+          .profile-panel__introduction
+            text-align: left
+            font-size: 13px

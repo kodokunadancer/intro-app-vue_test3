@@ -1,0 +1,1068 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito')
+
+// Variables
+@import 'variables'
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap'
+
+//共通
+@mixin header
+  align-items: center
+  background-color: rgba(255, 255, 255, 0.94)
+  display: flex
+  justify-content: space-between
+  position: fixed
+  top: 0
+  right: 0
+  height: 80px
+  width: 100%
+  z-index: 1200
+
+@mixin a-btn
+  display: block
+  height: 100%
+  width: 100%
+
+@mixin profile-img
+  width: 100%
+  height: 450px
+
+@mixin group-nav-item($color)
+  border: 1px solid $color
+  cursor: pointer
+  height: 80px
+  text-align: center
+  width: 150px
+
+@mixin submit-btn
+  font-size: 18px
+  position: relative
+  display: inline-block
+  padding: 0.25em 0.5em
+  color: #FFF
+  background: #03A9F4
+  border: solid 1px #0f9ada
+  border-radius: 4px
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2)
+  text-shadow: 0 1px 0 rgba(0,0,0,0.2)
+  width: 100%
+  height: 100%
+
+@mixin tittle
+  font-size: 20px
+  font-weight: bold
+  margin-bottom: 50px
+  text-align: center
+
+body
+  font-family: "YuGothic", "Yu Gothic", "Meiryo", Hiragino Sans, Hiragino Kaku Gothic ProN, sans-serif
+  min-height: 568px
+  width: 100%
+
+a
+  color: inherit
+  text-decoration: none
+
+a:hover
+  text-decoration: none
+
+li
+  list-style: none
+
+button
+  background-color: transparent
+  border: none
+  cursor: pointer
+  outline: none
+  padding: 0
+  appearance: none
+
+
+//ヘッダー
+header
+  width: 100%
+  margin-bottom: 100px
+
+  .header
+    @include header
+    //ヘッダー（左）
+    .header-tittle
+      font-size: 18px
+      padding-left: 50px
+      height: 100%
+      width: 250px
+      a
+        @include a-btn
+        span
+          line-height: 80px
+    //ヘッダー（右）
+    .header-item
+      font-size: 15px
+      padding-right: 50px
+      display: flex
+      justify-content: space-between
+      .header-item__username
+        span
+          line-height: 80px
+          margin-right: 50px
+      .logout-button
+        background-color: transparent
+        border: none
+        cursor: pointer
+        outline: none
+        padding: 0
+        appearance: none
+
+      .header-item__login
+        a
+          @include a-btn
+          span
+            line-height: 80px
+
+
+//ページ選択
+.select-pages-nav
+    margin-bottom: 50px
+
+    .select-pages-nav__list
+      display: flex
+      justify-content: space-between
+      margin: 0 auto
+      width: 40%
+
+      .select-pages-nav__item
+        @include group-nav-item(#000)
+
+        .select-pages-nav__btn
+          @include a-btn
+
+          .select-pages-nav__text
+            line-height: 80px
+
+        .select-pages-nav__btn:hover
+          background-color: #59b1eb
+          color: #fff
+          text-decoration: none
+
+      .select-pages-nav__item
+        @include group-nav-item(#000)
+
+        .select-pages-nav__btn--exit
+           @include a-btn
+
+        .select-pages-nav__btn--exit:hover
+          background-color: #ff7c5c
+          color: #fff
+
+          .select-pages-nav__text--exit
+            line-height: 80px
+
+//ホーム
+.home
+  margin: 0 auto
+  .panel
+    .text
+      @include tittle
+
+
+
+//ログインページ
+.login-regster-form
+  width: 50%
+  margin: 0 auto
+  .tab
+    font-size: 18px
+    display: flex
+    justify-content: space-around
+    margin: 0
+    padding: 0
+    .tab__item
+      width: 50%
+      padding-left: 100px
+      padding-top: 30px
+      padding-bottom: 30px
+    .tab__item--active
+      background-color: #e2e2e2
+      border-bottom: #e2e2e2
+      font-weight: bold
+
+  .panel
+    background-color: #e2e2e2
+    padding-top: 20px
+    padding-bottom: 30px
+    .form
+      .errors
+        .errors__list
+          .errors__item
+      .form__input
+        padding-left: 50px
+        .form__label
+          display: block
+          font-size: 16px
+        .form__item
+          display: block
+          margin-bottom: 40px
+          width: 280px
+          height: 40px
+        .form__button
+          margin: 0
+          width: 120px
+          height: 50px
+          .button
+            @include submit-btn
+          .button:active
+            border: solid 1px #03A9F4
+            box-shadow: none
+            text-shadow: none
+
+//グループ作成
+.create-group
+  width: 50%
+  margin: 0 auto
+  .tittle
+    @include tittle
+  .form
+    .errors
+      .errors__list
+        .errors__item
+    .form-group
+      .form-group__label
+        display: block
+        font-size: 16px
+      .form-group__input
+        display: block
+        margin-bottom: 40px
+        width: 280px
+        height: 40px
+    .submit
+      margin-top: 30px
+      width: 120px
+      height: 50px
+      .submit__btn
+        @include submit-btn
+
+//グループ検索
+.reserch-group
+  width: 50%
+  margin: 0 auto
+  .tittle
+    @include tittle
+  .reserch
+    .form
+      .errors
+        .errors__list
+          .errors__item
+      .form-group
+        .form-group__label
+          display: block
+          font-size: 16px
+        .form-group__input
+          display: block
+          margin-bottom: 40px
+          width: 280px
+          height: 40px
+      .submit
+        margin-top: 30px
+        width: 120px
+        height: 50px
+        .submit__btn
+          @include submit-btn
+  .group-info
+    .group-info__photo
+      img
+        @include profile-img
+    .group-info__name
+      text-align: center
+    .submit
+      margin-top: 30px
+      width: 120px
+      height: 50px
+      .submit__btn
+        @include submit-btn
+
+
+//プロフィール作成
+.cretate-profile
+  width: 50%
+  margin: 0 auto
+  .create-profile__tittle
+    @include tittle
+  .form
+    .errors
+      .errors__list
+        .errors__item
+    .form-group
+      padding-top: 10px
+      .form__group__label
+        display: block
+        font-size: 16px
+      .form-group__input
+        display: block
+        margin-bottom: 40px
+        width: 280px
+        height: 40px
+    .form-group
+      .form-group__label
+        display: block
+        font-size: 16px
+      .form-group__textarea
+        width: 400px
+        height: 80px
+    .submit
+      margin-top: 30px
+      width: 120px
+      height: 50px
+      .submit__btn
+        @include submit-btn
+
+//グループ一覧
+.group-list
+  .tittle
+    @include tittle
+  .group-wrapper
+    width: 100%
+    display: flex
+    justify-content: space-between
+    flex-wrap: wrap
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+  .no-gorup
+    font-size: 17px
+    text-align: center
+
+.group
+  text-align: center
+  padding: 50px 50px 50px
+  width: 50%
+  box-sizing: border-box
+  .group-panel
+    @include a-btn
+    &:hover
+      opacity: 0.6
+  .group-panel.not-link
+    @include a-btn
+    pointer-events: none
+    &:hover
+      opacity: 0
+    .group-panel__info
+      .group-panel__photo
+        img
+          @include profile-img
+          margin-bottom: 20px
+      .group-panel__name
+        font-size: 18px
+        font-weight: bold
+  .group-menu
+    position: relative
+    padding-bottom: 30px
+    .group-menu__btn
+      position: absolute
+      top: 0
+      right: 10px
+      .group-menu__icon
+        font-size: 30px
+  .dropdown
+    position: relative
+    .menu-list
+      width: 300px
+      position: absolute
+      margin: 0
+      z-index: 999px
+      right: 0
+      .menu-item
+        background: #fff
+        font-size: 18px
+        border-top: solid #999999 0
+        padding-top: 0
+        padding-bottom: 0
+        width: 300px
+        transition: border-top .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out
+        &:last-child
+          border-bottom: solid #999999 0
+        .menu-btn
+          line-height: 0
+          opacity: 0
+          display: none
+          margin: 0 auto
+          width: 100%
+          height: 100%
+          transition: line-height .3s ease-out, opacity .1s linear, display .1s linears
+    .menu-list.is-open
+      width: 300px
+      .menu-item
+        background: #fff
+        border-top: solid #999999 1px
+        padding-top: 18px
+        padding-bottom: 18px
+        width: 300px
+        transition: border-top .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out
+        &:hover
+          color: #fff
+          border-top: 0
+          transition: all .5s ease-out
+          .menu-btn
+            color: #fff
+            transition: color .5s ease-out
+            .group__edit-link
+              color: #fff
+              transition: color .5s ease-out
+        &:first-child
+          &:hover
+            border-top: 1px solid #999999
+            background: #999999
+        &:nth-child(2)
+          .group__edit-link
+            display: block
+            &hover
+              text-decoration: none
+          &:hover
+            border-top: 1px solid #59b1eb
+            background: #59b1eb
+        &:nth-child(3)
+          &:hover
+            border-top: 1px solid #ff7c5c
+            background: #ff7c5c
+        &:last-child
+          border-bottom: solid #999999 1px
+          &:hover
+            border-top: 1px solid #c7004c
+            background: #c7004c
+        .menu-btn
+          line-height: 1.5
+          opacity: 1
+          display: block
+          margin: 0 auto
+          width: 100%
+          height: 100%
+          transition: line-height .3s ease-out, opacity .1s linear, display .1s linear
+
+//グループ詳細
+.group-detail
+  .tittle
+    @include tittle
+  .group-password
+    text-align: center
+    margin-bottom: 50px
+
+//マイプロフィール
+.my-profile
+  margin: 0 auto
+  width: 50%
+  .my-profile__edit-link
+    display: block
+    border-radius: 25px
+    border: 1px solid #59b1eb
+    background: #59b1eb
+    color: #fff
+    padding: 7px 20px
+    margin-bottom: 20px
+    margin-right: 7px
+    margin-left: auto
+    width: 100px
+    &:hover
+      background: #FFF
+      border: 1px solid #59b1eb
+      color: #59b1eb
+  .my-profile-panel-link
+    @include a-btn
+    &:hover
+      opacity: 0.6
+    .my-profile__photo
+      margin-bottom: 20px
+      .my-profile__photo--true
+        img
+          @include profile-img
+      .my-profile__photo--false
+        img
+          @include profile-img
+    .my-profile__name
+      text-align: center
+      font-size: 18px
+      font-weight: bold
+      margin-bottom: 20px
+    .my-profile__introduction
+      text-align: left
+      font-size: 16px
+
+//他プロフィール
+.profile-wrapper
+  width: 100%
+  display: flex
+  justify-content: space-between
+  flex-wrap: wrap
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+.profile
+  text-align: center
+  padding: 50px 50px 50px
+  width: 50%
+  box-sizing: border-box
+  .force
+  .profile-panel-link
+    @include a-btn
+    &:hover
+      opacity: 0.6
+    .profile-panel
+      .profile-panel__photo
+        margin-bottom: 20px
+        img
+          @include profile-img
+      .profile-panel__name
+        text-align: center
+        font-size: 18px
+        font-weight: bold
+        margin-bottom: 20px
+      .profile-panel__introduction
+        text-align: left
+        font-size: 18px
+
+//プロフィール詳細
+.show-myprofile
+  margin: 0 auto
+  width: 50%
+  .profile-name
+    font-size: 18px
+    font-weight: bold
+    margin-top: 20px
+    margin-bottom: 20px
+    text-align: center
+  .profile-photo
+    .profile-photo__item
+      img
+        @include profile-img
+  .profile-introduction
+    text-align: center
+    margin-top: 20px
+    font-size: 16px
+  //コメントリスト
+  .comment-tittle
+    font-size: 18px
+    font-weight: bold
+    margin-top: 40px
+    margin-bottom: 40px
+    text-align: center
+  .comment-list
+    .comment-item
+      position: relative
+      padding-top: 30px
+      padding-bottom: 30px
+      border-bottom: 1px solid #ddd
+      .comment-item__name
+        font-size: 16px
+      .comment-item__content
+        font-size: 18px
+      .like-btn
+        position: absolute
+        top: 70px
+        left: 450px
+        .like-icon
+          position: absolute
+          top: -25px
+          left: -60px
+          background: url("https://introductionapp.s3-ap-northeast-1.amazonaws.com/vue/web_heart_animation.png")
+          background-position: left
+          background-size: 2900%
+          background-repeat: no-repeat
+          width: 70px
+          height: 70px
+
+        @keyframes heart-blast
+          0%
+            background-position: left
+          100%
+            background-position: right
+
+        .heart-animation
+          display: inline-block
+          background-position: right
+          -webkit-animation-name: heartBlast
+          animation-name: heartBlast
+          -webkit-animation-duration: .8s
+          animation-duration: .8s
+          -webkit-animation-iteration-count: 1
+          animation-iteration-count: 1
+          -webkit-animation-timing-function: steps(28)
+          animation-timing-function: steps(28)
+
+  .no-comment
+    font-size: 18px
+    margin-top: 30px
+  //コメントフォーム
+  .form
+    margin-top: 30px
+    .errors
+      .errors__list
+        .errors__item
+    .form__textarea
+      width: 600px
+      height: 200px
+      font-size: 17px
+    .submit
+      margin-top: 30px
+      width: 120px
+      height: 50px
+      .submit__btn
+        @include submit-btn
+
+
+//プロフィール詳細
+.show-profile
+  margin: 0 auto
+  width: 50%
+  .profile-name
+    font-size: 18px
+    font-weight: bold
+    margin-top: 20px
+    margin-bottom: 20px
+    text-align: center
+  .profile-photo
+    .profile-photo__item
+      img
+        @include profile-img
+  .profile-introduction
+    text-align: center
+    margin-top: 20px
+    font-size: 16px
+  //コメントリスト
+  .comment-tittle
+    font-size: 18px
+    font-weight: bold
+    margin-top: 40px
+    margin-bottom: 40px
+    text-align: center
+  .comment-list
+    .comment-item
+      position: relative
+      padding-top: 30px
+      padding-bottom: 30px
+      border-bottom: 1px solid #ddd
+      .comment-item__name
+        font-size: 16px
+      .comment-item__content
+        font-size: 18px
+      .like-btn
+        position: absolute
+        top: 70px
+        left: 450px
+        .like-icon
+          position: absolute
+          top: -25px
+          left: -60px
+          background: url("https://introductionapp.s3-ap-northeast-1.amazonaws.com/vue/web_heart_animation.png")
+          background-position: left
+          background-size: 2900%
+          background-repeat: no-repeat
+          width: 70px
+          height: 70px
+
+        @keyframes heart-blast
+          0%
+            background-position: left
+          100%
+            background-position: right
+
+        .heart-animation
+          display: inline-block
+          background-position: right
+          -webkit-animation-name: heartBlast
+          animation-name: heartBlast
+          -webkit-animation-duration: .8s
+          animation-duration: .8s
+          -webkit-animation-iteration-count: 1
+          animation-iteration-count: 1
+          -webkit-animation-timing-function: steps(28)
+          animation-timing-function: steps(28)
+
+  .no-comment
+    font-size: 18px
+    margin-top: 30px
+  //コメントフォーム
+  .form
+    margin-top: 30px
+    .errors
+      .errors__list
+        .errors__item
+    .form__textarea
+      width: 600px
+      height: 200px
+      font-size: 17px
+    .submit
+      margin-top: 30px
+      width: 120px
+      height: 50px
+      .submit__btn
+        @include submit-btn
+
+
+//グループ編集
+.edit-group
+  .loading
+  .form
+    margin: 0 auto
+    width: 50%
+    .errors
+      text-align: center
+      .errors__list
+        .errors__item
+    .form-photo
+      .form-photo__input
+      .form-photo__output--true
+        img
+          @include profile-img
+      .form-photo__output--false
+        .form-photo-img
+          img
+            @include profile-img
+    .form-text
+      .form-text__label
+        display: block
+        font-size: 16px
+        margin-top: 40px
+      .form-text__input
+        display: block
+        width: 280px
+        height: 40px
+      .form-text__textarea
+        width: 400px
+        height: 80px
+    .submit
+      margin-top: 30px
+      width: 120px
+      height: 50px
+      .submit__btn
+        @include submit-btn
+
+//プロフィール編集
+.edit-profile
+  .loading
+  .form
+    margin: 0 auto
+    width: 50%
+    .errors
+      text-align: center
+      .errors__list
+        .errors__item
+    .form-photo
+      .form-photo__input
+      .form-photo__output--true
+        img
+          @include profile-img
+      .form-photo__output--false
+        .form-photo-img
+          img
+            @include profile-img
+    .form-text
+      .form-text__label
+        display: block
+        font-size: 16px
+        margin-top: 40px
+      .form-text__input
+        display: block
+        width: 280px
+        height: 40px
+      .form-text__textarea
+        width: 400px
+        height: 80px
+    .submit
+      margin-top: 30px
+      width: 120px
+      height: 50px
+      .submit__btn
+        @include submit-btn
+
+.success-messages
+  @include tittle
+  background: #D7F9EE
+  border: 1px solid #41e2b2
+  border-radius: .25rem
+  color: #117355
+  margin-bottom: 1.5rem
+  padding: 1rem
+
+.error-messages
+  @include tittle
+  background: #ffb5b3
+  border: 1px solid #ff6e66
+  border-radius: .25rem
+  color: #ff3a33
+  margin-bottom: 1.5rem
+  padding: 1rem
+
+.loading
+  padding-top: 100px
+
+//ロード
+.loader
+  @include tittle
+  .loading__text
+
+//モーダル
+.modal
+  font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif
+
+  .modal__overlay
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: rgba(0,0,0,0.6)
+    display: flex
+    justify-content: center
+    align-items: center
+
+
+    .modal__container
+      background-color: #fff
+      padding: 30px
+      max-width: 500px
+      max-height: 100vh
+      border-radius: 4px
+      overflow-y: auto
+      box-sizing: border-box
+      width: 300px
+
+      .modal__header
+        display: flex
+        justify-content: space-around
+        align-items: center
+        margin: 0
+
+
+        .modal__title
+          margin-top: 0
+          margin-bottom: 0
+          margin: 0 auto
+          font-weight: 600
+          font-size: 1.25rem
+          line-height: 1.25
+          color: #00449e
+          box-sizing: border-box
+
+      .modal__content
+        margin-top: 2rem
+        margin-bottom: 2rem
+        line-height: 1.5
+        color: rgba(0,0,0,.8)
+
+        p
+
+      .modal__footer
+        display: flex
+        justify-content: space-between
+
+        .modal__btn
+          font-size: .875rem
+          padding-left: 1rem
+          padding-right: 1rem
+          padding-top: .5rem
+          padding-bottom: .5rem
+          background-color: #e6e6e6
+          color: rgba(0,0,0,.8)
+          border-radius: .25rem
+          border-style: none
+          border-width: 0
+          cursor: pointer
+          -webkit-appearance: button
+          text-transform: none
+          overflow: visible
+          line-height: 1.15
+          margin: 0
+          will-change: transform
+          -moz-osx-font-smoothing: grayscale
+          -webkit-backface-visibility: hidden
+          backface-visibility: hidden
+          -webkit-transform: translateZ(0)
+          transform: translateZ(0)
+          transition: -webkit-transform .25s ease-out
+          transition: transform .25s ease-out
+          transition: transform .25s ease-out,-webkit-transform .25s ease-out
+
+        .modal__btn:focus, .modal__btn:hover
+          -webkit-transform: scale(1.05)
+          transform: scale(1.05)
+
+        .modal__btn-primary
+          background-color: #00449e
+          color: #fff
+
+@keyframes mmfadeIn
+    from
+      opacity: 0
+    to
+      opacity: 1
+
+@keyframes mmfadeOut
+    from
+      opacity: 1
+    to
+      opacity: 0
+
+@keyframes mmslideIn
+  from
+    transform: translateY(15%)
+  to
+    transform: translateY(0)
+
+@keyframes mmslideOut
+    from
+      transform: translateY(0)
+    to
+      transform: translateY(-10%)
+
+.micromodal-slide
+  display: none
+
+
+.micromodal-slide.open-modal
+  display: block
+
+
+.open-modal .modal__overlay
+  animation: mmfadeIn .3s cubic-bezier(0.0, 0.0, 0.2, 1)
+
+.open-modal .modal__container
+  animation: mmslideIn .3s cubic-bezier(0, 0, .2, 1)
+
+.close-modal .modal__overlay
+  animation: mmfadeOut .3s cubic-bezier(0.0, 0.0, 0.2, 1)
+
+.close-modal .modal__container
+  animation: mmslideOut .3s cubic-bezier(0, 0, .2, 1)
+
+.micromodal-slide .modal__container,
+.micromodal-slide .modal__overlay
+  will-change: transform
+
+//エラーページに
+
+//認証エラー
+.authentication-error
+  padding-top: 100px
+  .error-content
+    text-align: center
+    .error-number
+      margin-bottom: 30px
+    .error-message
+      margin-bottom: 50px
+    .next-btn
+      position: relative
+      display: block
+      font-weight: bold
+      padding: 0.5em 1em
+      text-decoration: none
+      border-left: solid 4px #668ad8
+      border-right: solid 4px #668ad8
+      color: #668ad8
+      background: #e1f3ff
+      transition: .4s
+      width: 300px
+      height: 90px
+      margin: 0 auto
+      font-size: 20px
+      text-align: center
+      &:hover
+        background: #668ad8
+        color: #FFF
+
+//404エラー
+.not-found-error
+  padding-top: 100px
+  .error-content
+    text-align: center
+    .error-number
+      margin-bottom: 30px
+    .error-message
+      margin-bottom: 50px
+    .next-btn
+      position: relative
+      display: block
+      font-weight: bold
+      padding: 0.5em 1em
+      text-decoration: none
+      border-left: solid 4px #668ad8
+      border-right: solid 4px #668ad8
+      color: #668ad8
+      background: #e1f3ff
+      transition: .4s
+      width: 300px
+      height: 90px
+      margin: 0 auto
+      font-size: 20px
+      text-align: center
+      &:hover
+        background: #668ad8
+        color: #FFF
+
+//権限エラー
+.permission-error
+  padding-top: 100px
+  .error-content
+    text-align: center
+    .error-number
+      margin-bottom: 30px
+    .error-message
+      margin-bottom: 50px
+    .next-btn
+      position: relative
+      display: block
+      font-weight: bold
+      padding: 0.5em 1em
+      text-decoration: none
+      border-left: solid 4px #668ad8
+      border-right: solid 4px #668ad8
+      color: #668ad8
+      background: #e1f3ff
+      transition: .4s
+      width: 300px
+      height: 90px
+      margin: 0 auto
+      font-size: 20px
+      text-align: center
+      &:hover
+        background: #668ad8
+        color: #FFF
+
+//システムエラー
+.system-error
+  padding-top: 100px
+  .error-content
+    text-align: center
+    .error-number
+      margin-bottom: 30px
+    .error-message
+      margin-bottom: 50px
+    .next-btn
+      position: relative
+      display: block
+      font-weight: bold
+      padding: 0.5em 1em
+      text-decoration: none
+      border-left: solid 4px #668ad8
+      border-right: solid 4px #668ad8
+      color: #668ad8
+      background: #e1f3ff
+      transition: .4s
+      width: 300px
+      height: 90px
+      margin: 0 auto
+      font-size: 20px
+      text-align: center
+      &:hover
+        background: #668ad8
+        color: #FFF
+
+.errors
+  border: 1px solid #c7004c
+  border-radius: .25rem
+  color: #c7004c
+  margin-bottom: 1rem
+  .errors__list
+    margin: 0
+    padding-top: 10px
+    padding-bottom: 10px

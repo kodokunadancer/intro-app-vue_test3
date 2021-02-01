@@ -1,0 +1,40 @@
+//ページ選択
+.select-pages-nav
+    margin-bottom: 50px
+
+    .select-pages-nav__list
+      display: flex
+      justify-content: center
+      margin: 0 auto
+      width: 40%
+
+      .select-pages-nav__item
+        @include group-nav-item(#000)
+
+        .select-pages-nav__btn
+          @include a-btn
+          color: inherit
+
+          &:hover
+            background-color: #59b1eb
+            color: #fff
+            text-decoration: none
+
+          .select-pages-nav__text
+            line-height: 80px
+
+      .select-pages-nav__item
+        @include group-nav-item(#000)
+
+        .select-pages-nav__btn--exit
+          @include a-btn
+          &:hover
+            background-color: #ff7c5c
+            color: #fff
+
+          .select-pages-nav__text--exit
+            line-height: 80px
+
+@include sm
+  .select-pages-nav
+      display: none

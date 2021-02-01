@@ -1,0 +1,59 @@
+//グループ検索
+.reserch-group
+  width: 50%
+  margin: 0 auto
+  .tittle
+    @include tittle(20px, 50px)
+  .reserch
+  .group-info
+    .group-info__photo
+      position: relative
+      &::before
+        content: ''
+        padding-top: 100%
+        display: block
+      img
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0
+        left: 0
+        object-fit: cover
+    .group-info__name
+      text-align: center
+      font-size: 18px
+      font-weight: bold
+      margin-top: 20px
+      margin-bottom: 20px
+    .submit
+      margin-right: 0
+
+@include sm
+  .reserch-group
+    width: 100%
+    margin: 0 auto
+    .tittle
+      @include tittle(17px, 40px)
+    .reserch
+    .group-info
+      .group-info__photo
+        position: relative
+        &::before
+          content: ''
+          padding-top: 100%
+          display: block
+        img
+          position: absolute
+          width: 100%
+          height: 100%
+          top: 0
+          left: 0
+          object-fit: cover
+      .group-info__name
+        text-align: center
+        font-size: 16px
+        font-weight: bold
+        margin-top: 20px
+        margin-bottom: 20px
+      .submit
+        margin-right: 0

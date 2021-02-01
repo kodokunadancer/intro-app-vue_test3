@@ -1,0 +1,35 @@
+//グループ一覧
+
+@include xl
+  .group-list
+    .group-list-contets
+      .tittle
+        @include tittle(20px, 50px)
+      .group-wrapper
+        width: 100%
+        display: flex
+        justify-content: space-between
+        flex-wrap: wrap
+        box-sizing: border-box
+        margin: 0
+        padding: 0
+      .no-gorup
+        font-size: 20px
+        text-align: center
+
+@include sm
+  .group-list
+    .group-list-contets
+      .tittle
+        @include tittle(17px, 40px)
+      .group-wrapper
+        width: 100%
+        margin: 0
+        padding: 0
+      .no-gorup
+        position: relative
+        font-size: 14px
+        margin: 0 auto
+        .no-group-text
+          text-align: left
+          margin-bottom: 50px

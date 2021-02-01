@@ -1,0 +1,177 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito')
+
+// Variables
+@import 'variables'
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap'
+
+//レスポンシブ定義
+
+$sm: 480px
+$md: 896px
+$lg: 1024px
+$xl: 1025px
+
+@mixin sm
+  @media (max-width: ($sm))
+    @content
+
+@mixin md
+  @media (max-width: ($md))
+    @content
+
+@mixin lg
+  @media (max-width: ($lg))
+    @content
+
+@mixin xl
+  @media (min-width: ($xl))
+    @content
+
+//ヘッダー
+@mixin header($height)
+  align-items: center
+  background-color: rgba(255, 255, 255, 0.94)
+  display: flex
+  justify-content: space-between
+  position: fixed
+  top: 0
+  right: 0
+  height: $height
+  width: 100%
+  z-index: 1200
+
+@mixin a-btn
+  display: block
+  height: 100%
+  width: 100%
+
+@mixin profile-img($height)
+  width: 100%
+  height: $height
+
+@mixin group-nav-item($color)
+  border: 1px solid $color
+  cursor: pointer
+  height: 80px
+  text-align: center
+  width: 150px
+
+@mixin submit-btn($fontsize)
+  font-size: $fontsize
+  position: relative
+  display: inline-block
+  padding: 0.25em 0.5em
+  color: #FFF
+  background: #03A9F4
+  border: solid 1px #0f9ada
+  border-radius: 4px
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2)
+  text-shadow: 0 1px 0 rgba(0,0,0,0.2)
+  width: 100%
+  height: 100%
+
+@mixin guest-btn($fontsize)
+  font-size: $fontsize
+  position: relative
+  display: inline-block
+  padding: 0.25em 0.5em
+  color: #FFF
+  background: #3cb371
+  border: solid 1px #3cb371
+  border-radius: 4px
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2)
+  text-shadow: 0 1px 0 rgba(0,0,0,0.2)
+  width: 100%
+  height: 100%
+
+@mixin cancel-btn($font-size)
+  font-size: $font-size
+  position: relative
+  display: inline-block
+  padding: 0.25em 0.5em
+  color: #a9a9a9
+  background: #FFF
+  border: solid 1px #c0c0c0
+  border-radius: 4px
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2)
+  text-shadow: 0 1px 0 rgba(0,0,0,0.2)
+  width: 100%
+  height: 100%
+
+@mixin tittle($font-size, $margin-bottom)
+  font-size: $font-size
+  font-weight: bold
+  margin-bottom: $margin-bottom
+  text-align: center
+
+@mixin show-profile($img-size)
+  .profile-name
+    font-size: 18px
+    font-weight: bold
+    margin-top: 20px
+    margin-bottom: 20px
+    text-align: center
+  .profile-photo
+    .profile-photo__item
+      img
+        @include profile-img($img-size)
+  .profile-introduction
+    text-align: center
+    margin-top: 20px
+    font-size: 16px
+
+@mixin error-pages
+  .error-content
+    text-align: center
+    .error-number
+      margin-bottom: 30px
+    .error-message
+      margin-bottom: 30px
+    .next-btn
+      position: relative
+      display: block
+      font-weight: bold
+      padding: 0.5em 1em
+      text-decoration: none
+      border-left: solid 4px #668ad8
+      border-right: solid 4px #668ad8
+      color: #668ad8
+      background: #e1f3ff
+      transition: .4s
+      width: 300px
+      height: 80px
+      margin: 0 auto
+      font-size: 20px
+      text-align: center
+      &:hover
+        background: #668ad8
+        color: #FFF
+
+@mixin error-pages-sm
+  .error-content
+    text-align: center
+    .error-number
+      margin-bottom: 40px
+    .error-message
+      font-size: 17px
+      margin-bottom: 40px
+      text-align: left
+    .next-btn
+      position: relative
+      display: block
+      font-weight: bold
+      padding: 0.5em 1em
+      text-decoration: none
+      border-left: solid 4px #668ad8
+      border-right: solid 4px #668ad8
+      color: #668ad8
+      background: #e1f3ff
+      transition: .4s
+      width: 90%
+      height: 60px
+      margin: 0 auto
+      font-size: 16px
+      text-align: center

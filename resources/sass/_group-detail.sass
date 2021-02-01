@@ -1,0 +1,25 @@
+//グループ詳細
+.group-detail
+  .tittle
+    @include tittle(20px, 30px)
+  .group-password
+    text-align: center
+    margin-bottom: 50px
+    .group-password__text
+      font-size: 18px
+    .group-password__password
+      font-size: 20px
+      font-weight: bold
+
+@include sm
+  .group-detail
+    .tittle
+      @include tittle(20px, 15px)
+    .group-password
+      text-align: center
+      margin-bottom: 50px
+      .group-password__text
+        font-size: 15px
+      .group-password__password
+        font-size: 17px
+        font-weight: bold

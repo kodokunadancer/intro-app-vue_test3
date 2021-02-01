@@ -1,0 +1,121 @@
+//コメントリスト
+.comment-tittle
+  font-size: 18px
+  font-weight: bold
+  margin-top: 40px
+  margin-bottom: 40px
+  text-align: center
+.comment-list
+  padding: 0
+  .comment-item
+    position: relative
+    padding-top: 30px
+    padding-bottom: 30px
+    border-bottom: 1px solid #ddd
+    .comment-item__name
+      font-size: 16px
+      color: #59b1eb
+      &:hover
+        text-decoration: none
+    .comment-item__content
+      font-size: 18px
+    .like-btn
+      position: absolute
+      bottom: 0
+      right: 5%
+      width: 70px
+      height: 70px
+      .like-btn__text
+        position: absolute
+        right: 0
+        line-height: 70px
+      .like-icon
+        background: url("https://introductionapp.s3-ap-northeast-1.amazonaws.com/vue/web_heart_animation.png")
+        background-position: left
+        background-size: 2900%
+        background-repeat: no-repeat
+        width: 100%
+        height: 100%
+
+      @keyframes heart-blast
+        0%
+          background-position: left
+        100%
+          background-position: right
+
+      .heart-animation
+        display: inline-block
+        background-position: right
+        -webkit-animation-name: heartBlast
+        animation-name: heartBlast
+        -webkit-animation-duration: .8s
+        animation-duration: .8s
+        -webkit-animation-iteration-count: 1
+        animation-iteration-count: 1
+        -webkit-animation-timing-function: steps(28)
+        animation-timing-function: steps(28)
+
+.no-comment
+  font-size: 18px
+  margin-top: 30px
+
+@include sm
+  .comment-tittle
+    font-size: 16px
+    font-weight: bold
+    margin-top: 40px
+    margin-bottom: 20px
+    text-align: center
+  .comment-list
+    padding: 0
+    .comment-item
+      position: relative
+      padding-top: 20px
+      padding-bottom: 20px
+      border-bottom: 1px solid #ddd
+      .comment-item__name
+        font-size: 14px
+        color: #59b1eb
+        &:hover
+          text-decoration: none
+      .comment-item__content
+        font-size: 16px
+      .like-btn
+        position: absolute
+        bottom: 0
+        right: 5%
+        width: 50px
+        height: 50px
+        .like-btn__text
+          position: absolute
+          right: 0
+          line-height: 50px
+        .like-icon
+          background: url("https://introductionapp.s3-ap-northeast-1.amazonaws.com/vue/web_heart_animation.png")
+          background-position: left
+          background-size: 2900%
+          background-repeat: no-repeat
+          width: 100%
+          height: 100%
+
+        @keyframes heart-blast
+          0%
+            background-position: left
+          100%
+            background-position: right
+
+        .heart-animation
+          display: inline-block
+          background-position: right
+          -webkit-animation-name: heartBlast
+          animation-name: heartBlast
+          -webkit-animation-duration: .8s
+          animation-duration: .8s
+          -webkit-animation-iteration-count: 1
+          animation-iteration-count: 1
+          -webkit-animation-timing-function: steps(28)
+          animation-timing-function: steps(28)
+
+  .no-comment
+    font-size: 16px
+    margin-top: 30px

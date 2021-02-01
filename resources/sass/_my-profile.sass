@@ -1,0 +1,122 @@
+//マイプロフィール
+.my-profile
+  margin: 0 auto
+  width: 50%
+  .my-profile__edit-link
+    display: block
+    border-radius: 25px
+    border: 1px solid #59b1eb
+    background: #59b1eb
+    color: #fff
+    padding: 7px 20px
+    margin-bottom: 20px
+    margin-right: 7px
+    margin-left: auto
+    width: 100px
+    &:hover
+      background: #FFF
+      border: 1px solid #59b1eb
+      color: #59b1eb
+      text-decoration: none
+  .my-profile-panel-link
+    @include a-btn
+    color: inherit
+    &:hover
+      opacity: 0.6
+      color: inherit
+      text-decoration: none
+    .my-profile__photo
+      margin-bottom: 20px
+      .my-profile__photo--true
+        position: relative
+        &::before
+          content: ''
+          padding-top: 100%
+          display: block
+        img
+          position: absolute
+          width: 100%
+          height: 100%
+          top: 0
+          left: 0
+          object-fit: cover
+      .my-profile__photo--false
+        position: relative
+        &::before
+          content: ''
+          padding-top: 100%
+          display: block
+        img
+          position: absolute
+          width: 100%
+          height: 100%
+          top: 0
+          left: 0
+          object-fit: cover
+    .my-profile__name
+      text-align: center
+      font-size: 18px
+      font-weight: bold
+      margin-bottom: 20px
+    .my-profile__introduction
+      text-align: left
+      font-size: 16px
+
+@include sm
+  .my-profile
+    margin: 0 auto
+    width: 100%
+    .my-profile__edit-link
+      display: block
+      border-radius: 25px
+      border: 1px solid #59b1eb
+      background: #59b1eb
+      color: #fff
+      padding: 7px 20px
+      margin-bottom: 20px
+      margin-right: 7px
+      margin-left: auto
+      width: 100px
+    .my-profile-panel-link
+      @include a-btn
+      color: inherit
+      &:hover
+        opacity: 0.6
+        color: inherit
+        text-decoration: none
+      .my-profile__photo
+        margin-bottom: 20px
+        .my-profile__photo--true
+          position: relative
+          &::before
+            content: ''
+            padding-top: 100%
+            display: block
+          img
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            object-fit: cover
+        .my-profile__photo--false
+          position: relative
+          &::before
+            content: ''
+            padding-top: 100%
+            display: block
+          img
+            position: absolute
+            width: 100%
+            height: 100%
+            top: 0
+            left: 0
+            object-fit: cover
+      .my-profile__name
+        text-align: center
+        font-size: 16px
+        font-weight: bold
+        margin-bottom: 20px
+      .my-profile__introduction
+        text-align: left
+        font-size: 13px

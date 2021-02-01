@@ -1,0 +1,149 @@
+
+@include xl
+  .group-menu
+    position: relative
+    margin-bottom: 40px
+    .group-menu__btn
+      position: absolute
+      top: 0
+      right: 10px
+      .group-menu__icon
+        font-size: 30px
+  .dropdown
+    position: relative
+    z-index: 999
+    .menu-list
+      width: 300px
+      position: absolute
+      margin: 0
+      right: 0
+      .menu-item
+        background: #fff
+        font-size: 18px
+        border-top: solid #999999 0
+        padding-top: 0
+        padding-bottom: 0
+        width: 300px
+        transition: border-top .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out
+        &:last-child
+          border-bottom: solid #999999 0
+        .menu-btn
+          line-height: 0
+          opacity: 0
+          display: none
+          margin: 0 auto
+          width: 100%
+          height: 100%
+          transition: line-height .3s ease-out, opacity .1s linear, display .1s linears
+    .menu-list.is-open
+      width: 300px
+      .menu-item
+        background: #fff
+        border-top: solid #999999 1px
+        padding-top: 18px
+        padding-bottom: 18px
+        width: 300px
+        transition: border-top .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out
+        &:hover
+          color: #fff
+          border-top: 0
+          transition: all .5s ease-out
+          .menu-btn
+            color: #fff
+            transition: color .5s ease-out
+            .group__edit-link
+              color: #fff
+              transition: color .5s ease-out
+        &:first-child
+          &:hover
+            border-top: 1px solid #999999
+            background: #999999
+        &:nth-child(2)
+          .group__edit-link
+            display: block
+            &hover
+              text-decoration: none
+          &:hover
+            border-top: 1px solid #59b1eb
+            background: #59b1eb
+        &:nth-child(3)
+          &:hover
+            border-top: 1px solid #ff7c5c
+            background: #ff7c5c
+        &:last-child
+          border-bottom: solid #999999 1px
+          &:hover
+            border-top: 1px solid #c7004c
+            background: #c7004c
+        .menu-btn
+          line-height: 1.5
+          opacity: 1
+          display: block
+          margin: 0 auto
+          width: 100%
+          height: 100%
+          transition: line-height .3s ease-out, opacity .1s linear, display .1s linear
+
+@include sm
+  .group-menu
+    position: relative
+    margin-bottom: 40px
+    .group-menu__btn
+      position: absolute
+      top: 0
+      right: 10px
+      .group-menu__icon
+        font-size: 30px
+  .dropdown
+    position: relative
+    z-index: 999
+    .menu-list
+      width: 80%
+      padding: 0
+      position: absolute
+      margin: 0
+      right: 0
+      .menu-item
+        background: #fff
+        border-top: solid #999999 0
+        padding-top: 0
+        padding-bottom: 0
+        margin-left: auto
+        margin-right: 0
+        width: 80%
+        transition: border-top .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out
+        &:last-child
+          border-bottom: solid #999999 0
+        .menu-btn
+          line-height: 0
+          opacity: 0
+          display: none
+          margin: 0 auto
+          width: 100%
+          height: 100%
+          transition: line-height .3s ease-out, opacity .1s linear, display .1s linears
+    .menu-list.is-open
+      .menu-item
+        background: #fff
+        border-top: solid #999999 1px
+        font-size: 15px
+        padding-top: 8%
+        padding-bottom: 8%
+        margin-left: auto
+        margin-right: 0
+        width: 80%
+        transition: border-top .3s ease-out, padding-top .3s ease-out, padding-bottom .3s ease-out
+        &:nth-child(2)
+          .menu-btn
+            .group__edit-link
+              color: inherit
+        &:last-child
+          border-bottom: solid #999999 1px
+        .menu-btn
+          line-height: 2
+          opacity: 1
+          display: block
+          margin: 0 auto
+          width: 100%
+          height: 100%
+          transition: line-height .3s ease-out, opacity .1s linear, display .1s linear
