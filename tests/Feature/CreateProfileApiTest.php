@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class CreateProfileApiTest extends TestCase
 {
-    public function setUp(): vid
+    public function setUp(): void
     {
         parent::setUp();
         $this->user = factory(User::class)->create();
