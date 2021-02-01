@@ -28,7 +28,7 @@ Route::get('/groups/{group}', 'GroupController@getGroup')->name('get.group');
 
 Route::group(['middleware' => 'auth'],function() {
   //プロフィール作成ページ
-  Route::post('/profile/create', 'ProfileController@create')->name('create.profile')
+  Route::post('/profile/create', 'ProfileController@create')->name('create.profile');
   //マイプロフィールページ
   Route::get('/mypage/{user}/myprofile', 'ProfileController@showMyProfile')->name('index.myprofile');
   //コメント投稿処理
