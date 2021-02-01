@@ -16,7 +16,7 @@ class GetProfileApiTest extends TestCase
       parent::setUp();
       $this->user = factory(User::class)->create();
       $this->profile = factory(Profile::class)->create([
-        'user_id' = $this->user->id;
+        'user_id' => $this->user->id;
       ]);
     }
 
