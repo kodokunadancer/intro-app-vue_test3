@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
-use Illuminate\Http\Request;
+
 use App\User;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RegisterApiTest extends TestCase
 {
@@ -14,7 +15,7 @@ class RegisterApiTest extends TestCase
     /**
      * @test
      */
-    public function should_新しいユーザーを作成して返却する()
+    public function should_新しいユーザーを作成して返却する(): void
     {
         //会員登録処理にかけるデータを定義しておく
         $data = [

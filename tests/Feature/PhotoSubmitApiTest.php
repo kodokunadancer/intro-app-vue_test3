@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use App\Photo;
 use App\User;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
@@ -25,7 +26,7 @@ class PhotoSubmitApiTest extends TestCase
     /**
      * @test
      */
-    public function should_ファイルをアップロードできる()
+    public function should_ファイルをアップロードできる(): void
     {
         // S3ではなくテスト用のストレージを使用する
         // → storage/framework/testing
@@ -53,7 +54,7 @@ class PhotoSubmitApiTest extends TestCase
     /**
      * @test
      */
-    public function should_データベースエラーの場合はファイルを保存しない()
+    public function should_データベースエラーの場合はファイルを保存しない(): void
     {
         // 乱暴だがこれでDBエラーを起こす
         // データベースごと破損させる
@@ -71,13 +72,13 @@ class PhotoSubmitApiTest extends TestCase
         $response->assertStatus(500);
 
         // ストレージにファイルが保存されていないこと
-        $this->assertEquals(0, count(Storage::cloud()->files()));
+        $this->assertCount(0, Storage::cloud()->files());
     }
 
     /**
      * @test
      */
-    public function should_ファイル保存エラーの場合はDBへの挿入はしない()
+    public function should_ファイル保存エラーの場合はDBへの挿入はしない(): void
     {
         // ストレージをモックして保存時にエラーを起こさせる
         Storage::shouldReceive('cloud')

@@ -24,7 +24,7 @@ class GroupListApiTest extends TestCase
     public function should_正しい構造のJSONの返却(){
       $response = $this->actingAs($this->user)
                    ->json('GET', route('index.group'),[
-                      'user' => $this->user->id;
+                      'user' => $this->user->id,
                      ]);
 
       //登録しておいたダミーレコードを取得
@@ -37,16 +37,16 @@ class GroupListApiTest extends TestCase
           'name' => $group->name,
           'password' => $group->password,
           'author_id' => $group->author_id,
-          'photo' => $group->photo();
-          'users' => $group->users();
+          'photo' => $group->photo(),
+          'users' => $group->users(),
         ];
       })
       ->all();
 
       //以下から検証
-      $response->assertStatus(200);
+      $response->assertStatus(200)
                //JSONレスポンスのdata数が適切か
-               ->assertJsonCount(10, 'data');
+               ->assertJsonCount(10, 'data')
               //JSONレスポンスのdataの内容は期待通りか
               ->assertJsonFragment([
                 'data' => $expended_data,

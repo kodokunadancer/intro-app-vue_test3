@@ -25,7 +25,7 @@ class GetProfileApiTest extends TestCase
      */
     public function should_ログイン中のユーザーのプロフィールを取得できる() {
       $response = $this->actingAs($this->user)->json('GET', route('get.profile'));
-      $response->assertStatus(200);
+      $response->assertStatus(200)
                ->assertJsonFragment([
                  'owner' => [
                    'name' => $this->user->name;
@@ -36,7 +36,7 @@ class GetProfileApiTest extends TestCase
 
     public function should_ログインしていない場合は空文字列を返す() {
       $response = $this->json('GET', route('get.profile'));
-      $response->assertStatus(200);
+      $response->assertStatus(200)
       $this->assertEquals('', $response->content());
     }
 }
