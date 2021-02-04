@@ -92,9 +92,7 @@ export default {
         this.errors = response.data.errors
         return false
       }
-      else {
-        this.$store.commit('error/setCode', response.status)
-      }
+      this.$store.commit('error/setCode', response.status)
     },
     //グループ参加処理
     async join() {

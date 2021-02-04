@@ -48,7 +48,6 @@
     methods: {
       async submit() {
         await this.$store.dispatch('profile/createProfile', this.profileForm)
-        //プロフィール作成処理に成功したときだけ、遷移させる
         if(this.myProfile) {
           this.$router.push(`/mypage/${ this.$store.getters['auth/userid']}/groups`)
           this.$store.commit('message/setSuccessContent', {

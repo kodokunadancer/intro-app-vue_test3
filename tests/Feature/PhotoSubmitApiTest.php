@@ -6,6 +6,8 @@ namespace Tests\Feature;
 
 use App\Photo;
 use App\User;
+use App\Profile;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +23,9 @@ class PhotoSubmitApiTest extends TestCase
         parent::setUp();
 
         $this->user = factory(User::class)->create();
+        factory(Profile::class)->create([
+          'user_id' => $this->user->id,
+        ]);
     }
 
     /**
@@ -28,19 +33,28 @@ class PhotoSubmitApiTest extends TestCase
      */
     public function should_ファイルをアップロードできる(): void
     {
+        $data = [
+          'photo' => UploadedFile::fake()->image('photo.jpg'),
+          'textName' => 'テストネーム',
+          'textIntroduction' => 'テストイントロダクション',
+        ];
         // S3ではなくテスト用のストレージを使用する
         // → storage/framework/testing
         Storage::fake('s3');
 
         //非同期でファイルアップロード処理を実行させる
         $response = $this->actingAs($this->user)
-            ->json('POST', route('photo.create'), [
+            ->json('POST', route('edit.myProfile',[
+                'user' => $this->user->id,
+            ]), [
                 // ダミーファイルを作成して送信している
-                'photo' => UploadedFile::fake()->image('photo.jpg'),
+                'photo' => UploadedFile::fake()->image('photo.img'),
+                'textName' => 'テストネーム',
+                'textIntroduction' => 'テストイントロダクション',
             ]);
 
         // レスポンスが201(CREATED)であること
-        $response->assertStatus(201);
+        $response->assertStatus(200);
 
         $photo = Photo::first();
 
@@ -64,8 +78,13 @@ class PhotoSubmitApiTest extends TestCase
 
         //非同期でファイルアップロード処理をさせる
         $response = $this->actingAs($this->user)
-            ->json('POST', route('photo.create'), [
+            ->json('POST', route('edit.myProfile',[
+                'user' => $this->user->id,
+            ]), [
+                // ダミーファイルを作成して送信している
                 'photo' => UploadedFile::fake()->image('photo.jpg'),
+                'textName' => 'テストネーム',
+                'textIntroduction' => 'テストイントロダクション',
             ]);
 
         // レスポンスが500(INTERNAL SERVER ERROR)であること
@@ -86,7 +105,10 @@ class PhotoSubmitApiTest extends TestCase
             ->andReturnNull();
 
         $response = $this->actingAs($this->user)
-            ->json('POST', route('photo.create'), [
+            ->json('POST', route('edit.myProfile',[
+                'user' => $this->user->id,
+            ]), [
+                // ダミーファイルを作成して送信している
                 'photo' => UploadedFile::fake()->image('photo.jpg'),
             ]);
 

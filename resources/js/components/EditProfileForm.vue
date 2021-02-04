@@ -97,18 +97,18 @@ export default {
     }
   },
   methods: {
+    
     //フォームでファイルが選択されたら実行
     onFileChange(event) {
 
       //ファイルに関するエラーメッセージをクリア
       this.fileErrors.length = 0
 
-      //何も選択されていなかったら処理中断
       if(event.target.files.length === 0) {
         this.reset()
         return false
       }
-      //選択されたファイルが画像で無い場合、処理中断
+
       if(! event.target.files[0].type.match('image.*')) {
         this.reset()
         return false
@@ -116,7 +116,6 @@ export default {
 
       const reader = new FileReader()
 
-      //ファイルを読み込み終わったタイミングで実行する処理
       reader.onload = e => {
         this.preview = e.target.result
       }
@@ -127,6 +126,7 @@ export default {
       reader.readAsDataURL(event.target.files[0])
       this.photo = event.target.files[0]
     },
+
     //選択ファイルのバリデーション
     checkFile(event) {
       //選択されたファイルの拡張子を取得
@@ -150,9 +150,8 @@ export default {
         this.fileErrors.push('ファイルサイズが大きすぎる可能性があります')
       }
     },
-    //ファイル入力欄の値とプレビューの値と選択中の写真データとをクリアするメソッド
+    // 直前の入力をクリア
     reset() {
-      //送信が完了したら、入力欄とプレビューをクリア
       window:onload = () => {
         this.preview = ''
         this.photo = null
@@ -207,14 +206,12 @@ export default {
         return false
       }
 
-      //サーバーとの通信に成功した場合、一つ前のページへリダイレクトさせる
       this.cancel
       this.$store.commit('message/setSuccessContent', {
         successContent: "プロフィールの編集に成功しました",
         timeout: 6000
       })
     },
-    //キャンセルボタンをクリックしたときなどに発火
     cancel() {
       this.reset()
       this.$router.push(`${ this.$store.state.route.prevRoute.path}`)

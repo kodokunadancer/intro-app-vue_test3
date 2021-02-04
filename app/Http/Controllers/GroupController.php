@@ -39,10 +39,9 @@ class GroupController extends Controller
         $group->author_id = $user->id;
         $group->save();
 
-        //グループ一とユーザーを紐付かせ中間テーブルに保存
-        Auth::user()->groups()->attach($group);
+        $user->groups()->attach($group);
 
-        return response($group, 201);
+        return $group;
     }
 
     //グループ検索処理
@@ -54,7 +53,7 @@ class GroupController extends Controller
       ])->with('photo')->first();
 
         if ($group) {
-            return response($group, 200);
+            return $group;
         }
         return false;
     }
@@ -63,14 +62,13 @@ class GroupController extends Controller
     public function join(User $user, Group $group)
     {
         //ユーザーとグループの紐付きを中間テーブルに保存する
-        //すでに同じグループに参加している場合は、リダイレクトする
+        //すでに同じグループに参加している場合は、ロールバックする
         try {
             $user->groups()->attach($group);
-            //参加するグループ内へ
             return $group;
-        } catch (\Exception $e) {
+        } catch (\Exception $exception) {
             DB::rollback();
-            return abort(404);
+            throw $exception;
         }
     }
 
@@ -81,13 +79,12 @@ class GroupController extends Controller
             $my_groups = $user->groups()->with('photo')->get();
             return $my_groups;
         }
-        return response(200);
+        return false;
     }
 
     //グループ編集処理
     public function edit(User $user, Group $group, EditGroup $request)
     {
-        //画像が送られてきた場合のみ画像処理をする
         if ($request->photo) {
             $extension = $request->photo->extension();
 
@@ -97,7 +94,6 @@ class GroupController extends Controller
             // 本来の拡張子を組み合わせてファイル名とする
             $group_photo->filename = $group_photo->random_id . '.' . $extension;
 
-            // S3にファイルを保存する
             $group_photo->filename = Storage::cloud()->putFileAs('vue', $request->photo, $group_photo->filename, 'public');
 
             // データベースエラー時にファイル削除を行うため
@@ -116,7 +112,6 @@ class GroupController extends Controller
             }
         }
 
-        //グループ名の変更
         $group->name = $request->name;
         $group->save();
 
@@ -124,7 +119,7 @@ class GroupController extends Controller
     }
 
     //グループ詳細
-    public function showGroup(User $user, Group $group)
+    public function show(User $user, Group $group)
     {
         // 参加するグループと紐付いている複数のユーザーを配列に格納
         foreach ($group->users as $users) {
@@ -147,7 +142,7 @@ class GroupController extends Controller
     }
 
     //グループから退会
-    public function exitGroup(User $user, Group $group)
+    public function exit(User $user, Group $group)
     {
         $group->users()->detach($user);
         return response(200);

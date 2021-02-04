@@ -9,7 +9,7 @@ const state =  {
   modalContent: '',
   //以下、コンポーネントで監視し処理へ移させる際のフラグ
   exitGroup:  false,
-  //select.vueで監視する用のフラグ（監視するステートが同じだと退会処理がループする
+  //select.vueで監視する用のフラグ（監視するステートが同じだと退会処理がループする）
   selectExitGroup: false,
   naviExitGroup: false,
   deleteGroup: false,
@@ -18,6 +18,7 @@ const state =  {
 
 // 処理が発火するフラグのオンオフをここで制御
 const mutations = {
+
   setModal(state, {modalStatus, contentText, buttonText, modalContent}) {
     state.modalStatus = modalStatus,
     state.contentText = contentText,
@@ -39,6 +40,7 @@ const mutations = {
   setForceExit(state, forceExit) {
     state.forceExit = forceExit
   }
+
 }
 export default {
   namespaced: true,

@@ -29,11 +29,8 @@
 
  import './bootstrap'
  import Vue from 'vue'
- //VueRouterインスタンス（ページ切替可能インスタンス）
  import router from './router'
- //index.balde.phpの<div id="app"></div>の中にぶち込むためのApp.vue
  import App from './App.vue'
- //ストアフォルダ（注意は./store/indexではなく、フォルダごとインポートしている点。モジュールもまとめてインポート）
  import store from './store'
  import VueClipboard from 'vue-clipboard2'
  Vue.use(VueClipboard)
@@ -43,7 +40,6 @@
    await store.dispatch('profile/currentProfile')
    new Vue({
        el: '#app',
-       //VueRouterインスタンス（ページ切替可能インスタンス）の読み込み
        router,
        store,
        components: { App },

@@ -1,4 +1,3 @@
-//前のページの情報を保管する
 const state = {
   prevRoute: null
 }

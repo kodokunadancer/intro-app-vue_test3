@@ -181,7 +181,6 @@ export default {
         timeout: 6000
       })
       comment.likes_count = comment.likes_count - 1
-      // 該当のコメントにはまだいいねを押していない状態と記録する
       comment.liked_by_user = false
     }
   },

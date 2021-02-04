@@ -22,9 +22,6 @@ import TokenError from './pages/errors/Token.vue'
 import SystemError from './pages/errors/System.vue'
 import NotFound from './pages/errors/NotFound.vue'
 
-
-//VueRouterプラグインを使用する
-//これにより、Routerview（パスに応じてページコンポーネントを切り替えることのできる始点）などが使用できる
 Vue.use(VueRouter)
 const routes = [
   {
@@ -35,7 +32,6 @@ const routes = [
     path: '/login',
     component: Login,
     name: 'login',
-    //ログインしている状況でログインページにアクセスがあった場合、グループ一覧ページへ飛ばす
     beforeEnter(to, from, next) {
       if(store.getters['auth/check']) {
         next(`/mypage/${store.getters['auth/userid']}/groups`)
@@ -50,7 +46,6 @@ const routes = [
     path: '/profile/create',
     component: CreateProfile,
     name: 'CreateProfile',
-    //プロフィールを作成している段階でプロフィール作成ページにアクセスがあった場合、グループ一覧ページへ遷移させる
     beforeEnter(to, from, next) {
       if(store.getters['profile/check']) {
         next(`/mypage/${store.getters['auth/userid']}/groups`)
@@ -167,8 +162,6 @@ const routes = [
   }
 ]
 
-//VueRouterによって、パスによるコンポーネントの切り替えが可能になる
-//パスとコンポーネントのマッピング情報を別で作り、その情報をVueRouterインスタンスに含めることで、切り替えが可能になる
 const router = new VueRouter({
   mode: 'history',
   scrollBehavior () {
@@ -177,5 +170,4 @@ const router = new VueRouter({
   routes
 })
 
-//VueRouterインスタンス（ページ切り替え可能インスタンス）をapp.jsで使えるようにエクスポート
 export default router

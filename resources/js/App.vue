@@ -1,4 +1,3 @@
-<!-- index.balde.phpの<div id="app"></div>の中にぶち込まれる内容 -->
 <template>
   <div class="container">
     <header>
@@ -35,7 +34,6 @@ export default {
   },
   watch: {
     errorCode: {
-      // handlerの引数は、状態の変更後の値
       handler (val) {
         //システムエラー
         if (val === INTERNAL_SERVER_ERROR) {

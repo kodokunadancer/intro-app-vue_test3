@@ -31,11 +31,11 @@ Route::group(['middleware' => 'auth'],function() {
   Route::post('/profile/create', 'ProfileController@create')->name('create.profile');
   //マイプロフィールページ
   Route::get('/mypage/{user}/myprofile', 'ProfileController@showMyProfile')->name('index.myprofile');
-  //コメント投稿処理
+  //コメント投稿処理（自分に）
   Route::post('/mypage/{user}/myprofile/comments', 'ProfileController@addMyComment')->name('add.MyComment');
-  //いいね付与
+  //いいね付与（自分に）
   Route::put('/mypage/{user}/myprofile/comments/{comment}', 'ProfileController@myLike')->name('like.MyComment');
-  //いいね削除
+  //いいね削除（自分に）
   Route::delete('/mypage/{user}/myprofile/comments/{comment}', 'ProfileController@myUnlike');
   //グループ一覧
   Route::get('/mypage/{user}/groups','GroupController@index')->name('index.group');
@@ -55,9 +55,9 @@ Route::group(['middleware' => 'auth'],function() {
   //ユーザーとグループの紐づきの有無を確認
   Route::group(['middleware' => 'can:view,group'],function() {
     //グループ詳細
-    Route::get('/mypage/{user}/groups/{group}','GroupController@showGroup')->name('show.group');
+    Route::get('/mypage/{user}/groups/{group}','GroupController@show')->name('show.group');
     //グループ退会
-    Route::get('/mypage/{user}/groups/{group}/exit','GroupController@exitGroup')->name('exit.group');
+    Route::get('/mypage/{user}/groups/{group}/exit','GroupController@exit')->name('exit.group');
     //グループ編集
     Route::post('/mypage/{user}/groups/{group}/edit','GroupController@edit')->name('edit.group');
     //プロフィール詳細表示

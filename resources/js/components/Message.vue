@@ -1,7 +1,6 @@
 <template>
   <div class="message">
     <!-- サクセスメッセージ -->
-    <!-- メッセージストアをcomputedでチェックし、値が入っていたらメッセージを表示する -->
     <div class="success-messages" v-show="successMessage">
       {{ successMessage }}
     </div>

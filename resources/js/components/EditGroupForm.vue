@@ -96,16 +96,14 @@ export default {
   methods: {
     //フォームでファイルが選択されたら実行
     onFileChange(event) {
-
       //ファイルに関するエラーメッセージをクリア
       this.fileErrors.length = 0
 
-      //何も選択されていなかったら処理中断
       if(event.target.files.length === 0) {
         this.reset()
         return false
       }
-      //選択されたファイルが画像で無い場合、処理中断
+
       if(! event.target.files[0].type.match('image.*')) {
         this.reset()
         return false
@@ -113,7 +111,6 @@ export default {
 
       const reader = new FileReader()
 
-      // ファイルを読み込み終わったタイミングで実行する処理
       reader.onload = e => {
         this.preview = e.target.result
       }
@@ -124,6 +121,7 @@ export default {
       reader.readAsDataURL(event.target.files[0])
       this.photo = event.target.files[0]
     },
+
     //選択ファイルのバリデーション
     checkFile(event) {
       //選択されたファイルの拡張子を取得
@@ -132,7 +130,6 @@ export default {
       var extension = filename.slice(position + 1)
       //拡張子を小文字に変換
       var extLowerCase = extension.toLowerCase()
-      //使用できる拡張子を配列に格納
       const extensions = new Array('jpg','jpeg','png','gif','heic')
       const limit = 2000000
       var fileSize = event.target.files[0].size
@@ -147,6 +144,7 @@ export default {
         this.fileErrors.push('ファイルサイズが大きすぎる可能性があります')
       }
     },
+
     // 直前の入力をクリアする
     reset() {
       window:onload = () => {
@@ -155,11 +153,12 @@ export default {
         this.$el.querySelector('#edit-profile-input').value = null
       }
     },
+
     // 編集処理へ
     async submit() {
 
-      //何も編集をせず完了ボタンを押した場合、前のページにリダイレクトする
-      if(this.noEdit) {
+    //何も編集をせず完了ボタンを押した場合、前のページにリダイレクトする
+    if(this.noEdit) {
         this.$store.commit('message/setSuccessContent', {
           successContent: "編集は行われませんでした",
           timeout: 6000
@@ -168,13 +167,14 @@ export default {
         return false
       }
 
-      //ローディング状態にする
       this.loading = true
 
       const formData = new FormData()
+
       if(this.photo) {
         formData.append('photo', this.photo)
       }
+
       formData.append('name', this.text.name)
 
       const response = await axios.post(`/api/mypage/${ this.id }/groups/${ this.group }/edit`, formData)
@@ -202,7 +202,6 @@ export default {
         return false
       }
 
-      //グループ一覧ページへ
       this.$router.push(`/mypage/${ this.id }/groups`)
       this.$store.commit('message/setSuccessContent', {
         successContent: "グループの編集に成功しました",
@@ -210,7 +209,6 @@ export default {
       })
 
     },
-    //編集のキャンセルなどしたときに発火
     cancel() {
       this.reset()
       this.$router.push(`${ this.$store.state.route.prevRoute.path}`)

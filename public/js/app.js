@@ -1968,7 +1968,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -1988,7 +1987,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     errorCode: {
-      // handlerの引数は、状態の変更後の値
       handler: function handler(val) {
         //システムエラー
         if (val === _util__WEBPACK_IMPORTED_MODULE_4__["INTERNAL_SERVER_ERROR"]) {
@@ -2139,20 +2137,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       //ファイルに関するエラーメッセージをクリア
-      this.fileErrors.length = 0; //何も選択されていなかったら処理中断
+      this.fileErrors.length = 0;
 
       if (event.target.files.length === 0) {
         this.reset();
         return false;
-      } //選択されたファイルが画像で無い場合、処理中断
-
+      }
 
       if (!event.target.files[0].type.match('image.*')) {
         this.reset();
         return false;
       }
 
-      var reader = new FileReader(); // ファイルを読み込み終わったタイミングで実行する処理
+      var reader = new FileReader();
 
       reader.onload = function (e) {
         _this.preview = e.target.result;
@@ -2170,8 +2167,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var position = filename.lastIndexOf('.');
       var extension = filename.slice(position + 1); //拡張子を小文字に変換
 
-      var extLowerCase = extension.toLowerCase(); //使用できる拡張子を配列に格納
-
+      var extLowerCase = extension.toLowerCase();
       var extensions = new Array('jpg', 'jpeg', 'png', 'gif', 'heic');
       var limit = 2000000;
       var fileSize = event.target.files[0].size; //ファイルエラーテキストの生成
@@ -2223,7 +2219,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 4:
-                //ローディング状態にする
                 _this3.loading = true;
                 formData = new FormData();
 
@@ -2271,7 +2266,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 21:
-                //グループ一覧ページへ
                 _this3.$router.push("/mypage/".concat(_this3.id, "/groups"));
 
                 _this3.$store.commit('message/setSuccessContent', {
@@ -2287,7 +2281,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    //編集のキャンセルなどしたときに発火
     cancel: function cancel() {
       this.reset();
       this.$router.push("".concat(this.$store.state.route.prevRoute.path));
@@ -2417,20 +2410,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       //ファイルに関するエラーメッセージをクリア
-      this.fileErrors.length = 0; //何も選択されていなかったら処理中断
+      this.fileErrors.length = 0;
 
       if (event.target.files.length === 0) {
         this.reset();
         return false;
-      } //選択されたファイルが画像で無い場合、処理中断
-
+      }
 
       if (!event.target.files[0].type.match('image.*')) {
         this.reset();
         return false;
       }
 
-      var reader = new FileReader(); //ファイルを読み込み終わったタイミングで実行する処理
+      var reader = new FileReader();
 
       reader.onload = function (e) {
         _this.preview = e.target.result;
@@ -2466,11 +2458,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.fileErrors.push('ファイルサイズが大きすぎる可能性があります');
       }
     },
-    //ファイル入力欄の値とプレビューの値と選択中の写真データとをクリアするメソッド
+    // 直前の入力をクリア
     reset: function reset() {
       var _this2 = this;
 
-      //送信が完了したら、入力欄とプレビューをクリア
       window: onload = function onload() {
         _this2.preview = '';
         _this2.photo = null;
@@ -2549,7 +2540,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context.abrupt("return", false);
 
               case 22:
-                //サーバーとの通信に成功した場合、一つ前のページへリダイレクトさせる
                 _this3.cancel;
 
                 _this3.$store.commit('message/setSuccessContent', {
@@ -2565,7 +2555,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    //キャンセルボタンをクリックしたときなどに発火
     cancel: function cancel() {
       this.reset();
       this.$router.push("".concat(this.$store.state.route.prevRoute.path));
@@ -2720,7 +2709,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         modalContent: 'delete'
       });
     },
-    //ページのリロード
+    // ページのリロード
     reload: function reload() {
       this.$router.go({
         path: this.$router.currentRoute.path,
@@ -2772,8 +2761,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     });
 
                     _this.$store.commit('error/setCode', response.status);
-                  } //ページのリロード
-
+                  }
 
                   _this.reload();
 
@@ -2874,7 +2862,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -4573,24 +4560,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 2:
                 response = _context.sent;
 
-                if (!(response.status === _util_js__WEBPACK_IMPORTED_MODULE_1__["CREATED"])) {
-                  _context.next = 8;
-                  break;
+                if (response.status !== _util_js__WEBPACK_IMPORTED_MODULE_1__["CREATED"]) {
+                  _this.$store.commit('message/setErrorContent', {
+                    errorContent: "グループの作成に失敗しました",
+                    timeout: 6000
+                  });
+
+                  _this.$store.commit('error/setCode', response.status);
                 }
 
-                _this.$router.push("/mypage/".concat(_this.id, "/groups"));
-
-                _this.$store.commit('message/setSuccessContent', {
-                  successContent: 'グループの作成に成功しました',
-                  timeout: 6000
-                });
-
-                _context.next = 16;
-                break;
-
-              case 8:
                 if (!(response.status === _util_js__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"])) {
-                  _context.next = 14;
+                  _context.next = 8;
                   break;
                 }
 
@@ -4602,15 +4582,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.errors = response.data.errors;
                 return _context.abrupt("return", false);
 
-              case 14:
-                _this.$store.commit('message/setErrorContent', {
-                  errorContent: "グループの作成に失敗しました",
+              case 8:
+                _this.$router.push("/mypage/".concat(_this.id, "/groups"));
+
+                _this.$store.commit('message/setSuccessContent', {
+                  successContent: 'グループの作成に成功しました',
                   timeout: 6000
                 });
 
-                _this.$store.commit('error/setCode', response.status);
-
-              case 16:
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -5172,17 +5152,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 8:
                 if (!(response.status === _util_js__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"])) {
-                  _context.next = 13;
+                  _context.next = 11;
                   break;
                 }
 
                 _this.errors = response.data.errors;
                 return _context.abrupt("return", false);
 
-              case 13:
+              case 11:
                 _this.$store.commit('error/setCode', response.status);
 
-              case 14:
+              case 12:
               case "end":
                 return _context.stop();
             }
@@ -5319,7 +5299,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this.$store.dispatch('profile/createProfile', _this.profileForm);
 
               case 2:
-                //プロフィール作成処理に成功したときだけ、遷移させる
                 if (_this.myProfile) {
                   _this.$router.push("/mypage/".concat(_this.$store.getters['auth/userid'], "/groups"));
 
@@ -5778,8 +5757,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   timeout: 6000
                 });
 
-                comment.likes_count = comment.likes_count - 1; // 該当のコメントにはまだいいねを押していない状態と記録する
-
+                comment.likes_count = comment.likes_count - 1;
                 comment.liked_by_user = false;
 
               case 10:
@@ -27531,11 +27509,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- //VueRouterインスタンス（ページ切替可能インスタンス）
 
- //index.balde.phpの<div id="app"></div>の中にぶち込むためのApp.vue
 
- //ストアフォルダ（注意は./store/indexではなく、フォルダごとインポートしている点。モジュールもまとめてインポート）
 
 
 
@@ -27557,7 +27532,6 @@ var createApp = /*#__PURE__*/function () {
           case 4:
             new vue__WEBPACK_IMPORTED_MODULE_2___default.a({
               el: '#app',
-              //VueRouterインスタンス（ページ切替可能インスタンス）の読み込み
               router: _router__WEBPACK_IMPORTED_MODULE_3__["default"],
               store: _store__WEBPACK_IMPORTED_MODULE_5__["default"],
               components: {
@@ -29475,8 +29449,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- //VueRouterプラグインを使用する
-//これにより、Routerview（パスに応じてページコンポーネントを切り替えることのできる始点）などが使用できる
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var routes = [{
@@ -29486,7 +29458,6 @@ var routes = [{
   path: '/login',
   component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: 'login',
-  //ログインしている状況でログインページにアクセスがあった場合、グループ一覧ページへ飛ばす
   beforeEnter: function beforeEnter(to, from, next) {
     if (_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters['auth/check']) {
       next("/mypage/".concat(_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters['auth/userid'], "/groups"));
@@ -29499,7 +29470,6 @@ var routes = [{
   path: '/profile/create',
   component: _pages_profiles_CreateProfile_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'CreateProfile',
-  //プロフィールを作成している段階でプロフィール作成ページにアクセスがあった場合、グループ一覧ページへ遷移させる
   beforeEnter: function beforeEnter(to, from, next) {
     if (_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters['profile/check']) {
       next("/mypage/".concat(_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters['auth/userid'], "/groups"));
@@ -29615,9 +29585,7 @@ var routes = [{
 {
   path: '*',
   component: _pages_errors_NotFound_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
-}]; //VueRouterによって、パスによるコンポーネントの切り替えが可能になる
-//パスとコンポーネントのマッピング情報を別で作り、その情報をVueRouterインスタンスに含めることで、切り替えが可能になる
-
+}];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   scrollBehavior: function scrollBehavior() {
@@ -29627,8 +29595,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     };
   },
   routes: routes
-}); //VueRouterインスタンス（ページ切り替え可能インスタンス）をapp.jsで使えるようにエクスポート
-
+});
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
@@ -29654,22 +29621,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var state = {
   user: null,
-  //APIの呼び出しに成功したかどうかをしめすフラグステート
   apiStatus: null,
-  //APIを呼び出しの際に発生したエラーメッセージをセットする場所
   loginErrortMessages: null,
   registerErrorMessages: null
 };
 var getters = {
-  //ログイン状態かチェック
-  //まず最初の!で、真偽値の逆判定が返る。もうひとつの!で、真の真偽判定が返る
   check: function check(state) {
     return !!state.user;
   },
   userid: function userid(state) {
     return state.user ? state.user.id : null;
   },
-  //ユーザーネームがnullの場合は空文字列を返す。それ以外はuserのnameを返す
   username: function username(state) {
     return state.user ? state.user.name : '';
   }
@@ -29689,7 +29651,6 @@ var mutations = {
   }
 };
 var actions = {
-  //第一引数にはミューテーションを呼び出すcommitメソッドなどが入っているcontextオブジェクトを記入
   register: function register(context, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       var response;
@@ -29709,33 +29670,26 @@ var actions = {
                 break;
               }
 
-              // API成功フラグをたてる
-              context.commit('setApiStatus', true); // ユーザーステートに会員登録したユーザー情報を格納する
-
+              context.commit('setApiStatus', true);
               context.commit('setUser', response.data);
               return _context.abrupt("return", false);
 
             case 8:
-              //失敗の場合、まず失敗フラグをたてる
               context.commit('setApiStatus', false);
               context.commit('message/setErrorContent', {
                 errorContent: "会員登録に失敗しました",
                 timeout: 6000
               }, {
                 root: true
-              }); //APIレスポンスが422の場合、ステートのエラーメッセージをセットする
-              //バリデーションエラーはそのエラー用のページに遷移させずに、そのページ内でエラーは内容を表示させるだけなので、errorモジュールのステートを更新してApp.vueに検知させる必要はない
+              });
 
               if (response.status === _util_js__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
                 context.commit('setRegisterErrorMessages', response.data.errors);
-              } //それ以外のエラーレスポンスの場合、エラーモジュールのステートにエラーフラグをたてる
-              //あるモジュールから別のモジュールのミューテーションを実行する場合、{ root:true }　を追加する
-              else {
-                  //errorモジュールのcodeステートを該当のエラーコードに更新（App.vueがすぐに検知する）
-                  context.commit('error/setCode', response.status, {
-                    root: true
-                  });
-                }
+              } else {
+                context.commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
 
             case 11:
             case "end":
@@ -29854,15 +29808,13 @@ var actions = {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              context.commit('setApiStatus', null); //ログインユーザーの取得をリクエストし、結果を受信
-
+              context.commit('setApiStatus', null);
               _context4.next = 3;
               return axios.get('/api/user');
 
             case 3:
               response = _context4.sent;
-              //ログインしていない場合は、nullをuserに代入
-              user = response.data || null; //成功した場合
+              user = response.data || null;
 
               if (!(response.status === _util_js__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
                 _context4.next = 9;
@@ -29907,8 +29859,6 @@ var actions = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//ルートコンポーネントAPP.vueが常にこのerror.jsのステートを監視しており、ステートにエラー内容がセットされたら、App.vueが特定のエラーページに遷移させる
-//つまりここは、通常通りページを遷移させるか、エラーページに遷移させるかの判断基準ストア（データ保管場所）になる
 var state = {
   code: null
 };
@@ -29969,10 +29919,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modal */ "./resources/js/store/modal.js");
 /* harmony import */ var _group__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./group */ "./resources/js/store/group.js");
 /* harmony import */ var _route__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./route */ "./resources/js/store/route.js");
-//vuexを使用するためにvueをインポート
- //vuexをインスタンス化し、使用を開始するため
-
- //authモジュールもストア内に含めるため
 
 
 
@@ -29980,10 +29926,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // Vuexを使用可能にする
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]); //storeというストア（データ保持場所）をインスタン化し作成。その中に同じストアだが、authというモジュールを作り、ストア内を分解する
 
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
     auth: _auth__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -30009,9 +29954,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var state = {
-  // 成功メッセージ
   successContent: '',
-  // 失敗メッセージ
   errorContent: ''
 };
 var mutations = {
@@ -30022,8 +29965,7 @@ var mutations = {
 
     if (typeof timeout === 'undefined') {
       timeout = 3000;
-    } //一定時間たったら消えるように設定
-
+    }
 
     setTimeout(function () {
       return state.successContent = '';
@@ -30036,8 +29978,7 @@ var mutations = {
 
     if (typeof timeout === 'undefined') {
       timeout = 3000;
-    } //一定時間たったら消えるように設定
-
+    }
 
     setTimeout(function () {
       return state.errorContent = '';
@@ -30072,7 +30013,7 @@ var state = {
   modalContent: '',
   //以下、コンポーネントで監視し処理へ移させる際のフラグ
   exitGroup: false,
-  //select.vueで監視する用のフラグ（監視するステートが同じだと退会処理がループする
+  //select.vueで監視する用のフラグ（監視するステートが同じだと退会処理がループする）
   selectExitGroup: false,
   naviExitGroup: false,
   deleteGroup: false,
@@ -30270,7 +30211,6 @@ var actions = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//前のページの情報を保管する
 var state = {
   prevRoute: null
 };
@@ -30369,8 +30309,8 @@ var INTERNAL_SERVER_ERROR = 500;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/intro-app-vue_pro/web/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/html/intro-app-vue_pro/web/resources/sass/app.sass */"./resources/sass/app.sass");
+__webpack_require__(/*! /Users/kodokunadancer/code/intro-app-vue_test2/web/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/kodokunadancer/code/intro-app-vue_test2/web/resources/sass/app.sass */"./resources/sass/app.sass");
 
 
 /***/ })

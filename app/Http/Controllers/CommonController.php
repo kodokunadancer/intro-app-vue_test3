@@ -29,8 +29,10 @@ class CommonController extends Controller
         $user = Auth::user();
 
         if ($user) {
-            return $user->profiles()->with('photos')->first();
+            return $user->profiles()->with('photos', 'owner')->first();
         }
+
+        return false;
     }
 
     //トークンのリフレッシュ

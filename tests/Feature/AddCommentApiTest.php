@@ -7,8 +7,10 @@ namespace Tests\Feature;
 use App\Group;
 use App\Profile;
 use App\User;
+use App\Comment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Http\JsonResponse;
 
 class AddCommentApiTest extends TestCase
 {
@@ -18,50 +20,56 @@ class AddCommentApiTest extends TestCase
     {
         parent::setUp();
 
-        // ダミーユーザーを作成する。その時ダミーグループを作成し（同時に保存もしておく）そのグループ一と多対多のリレーションになる設定をする。
-        // 多対多のリレーション関係にしておかなければミドルウェアにひっかかる
-        $this->user = factory(User::class)
-            ->create()
-            ->groups()->save(factory(Group::class)->create());
-        $this->group = Group::first();
-        $this->profile = factory(Profile::class)->create();
+        //ユーザーとそれに紐づくプロフィールを２件ずつ作成
+        factory(User::class, 2)
+            ->create();
+            // ->each(function ($user){
+            //     $user->profiles()->save(factory(Profile::class)->make());
+            // });
     }
 
     /**
      * @test
      */
-    public function should_コメントを追加できる(): void
+    public function should_コメントを追加できる()
     {
-        //テスト写真データ作成
-        factory(Photo::class)->create();
-        //生成したテストデータ取得
-        $photo = Photo::first();
+        //コメントする側とされる側のユーザーを取得
+        $active_user = User::where('id', 1)->first();
+        $passive_user = User::where('id', 2)->first();
 
-        //コメント投稿リクエストする際のコメント内容
+        $active_user->groups()->save(factory(Group::class)->make());
+        $group = Group::first();
+
+        factory(Profile::class)->create(['user_id' => $active_user->id]);
+        factory(Profile::class)->create(['user_id' => $passive_user->id]);
+
+        $active_profile = Profile::where('user_id', $active_user->id)->first();
+        $passive_profile = Profile::where('user_id', $passive_user->id)->first();
+
         $content = 'sample content';
 
-        $response = $this->actingAs($this->user)
+        $response = $this->actingAs($active_user)
             ->json('POST', route('add.comment', [
-                'user' => $this->user->id,
-                'group' => $this->group->id,
-                'profile' => $this->profile->id,
+                'user' => $active_user->id,
+                'group' => $group->id,
+                'profile' => $passive_profile->id,
             ]), compact('content'));
 
-        //ダミー写真データに紐づくコメントデータを取得
-        $comments = $profile->comments()->get();
+        $comments = $passive_profile->comments()->get();
 
-        $response->assertStatus(201)
-            // JSONフォーマットが期待通りであること
+        $response->assertStatus(200)
             ->assertJsonFragment([
-                'author' => [
-                    'name' => $this->user->name,
+                "author" => [
+                    "name" => $active_profile->name,
                 ],
-                'content' => $content,
+                "content" => $content,
             ]);
+
 
         // DBにコメントが1件登録されていること
         $this->assertEquals(1, $comments->count());
         // 内容がAPIでリクエストしたものであること
         $this->assertEquals($content, $comments[0]->content);
+        $this->assertEquals($content, $response[0]['content']);
     }
 }

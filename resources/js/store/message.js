@@ -1,7 +1,5 @@
 const state = {
-  // 成功メッセージ
   successContent: '',
-  // 失敗メッセージ
   errorContent: ''
 }
 
@@ -13,7 +11,6 @@ const mutations = {
       timeout = 3000
     }
 
-    //一定時間たったら消えるように設定
     setTimeout(() => (state.successContent = ''), timeout)
   },
   setErrorContent (state, { errorContent, timeout }) {
@@ -23,7 +20,6 @@ const mutations = {
       timeout = 3000
     }
 
-    //一定時間たったら消えるように設定
     setTimeout(() => (state.errorContent = ''), timeout)
   }
 }

@@ -126,7 +126,7 @@ export default {
         modalContent: 'delete'
       })
     },
-    //ページのリロード
+    // ページのリロード
     reload() {
       this.$router.go({path: this.$router.currentRoute.path, force: true })
     }
@@ -159,7 +159,6 @@ export default {
             })
             this.$store.commit('error/setCode',response.status)
           }
-          //ページのリロード
           this.reload()
           this.$store.commit('message/setSuccessContent', {
             successContent: `「${ this.group.name }」から退会しました`,

@@ -44,14 +44,14 @@ export default {
     //グループ作成処理
     async submit() {
       const response = await axios.post(`/api/mypage/${ this.id }/groups/create`, this.GroupForm)
-      if( response.status === CREATED) {
-        this.$router.push(`/mypage/${ this.id }/groups`)
-        this.$store.commit('message/setSuccessContent',{
-          successContent: 'グループの作成に成功しました',
+      if( response.status !== CREATED) {
+        this.$store.commit('message/setErrorContent', {
+          errorContent: "グループの作成に失敗しました",
           timeout: 6000
         })
+        this.$store.commit('error/setCode', response.status)
       }
-      else if ( response.status === UNPROCESSABLE_ENTITY) {
+      if ( response.status === UNPROCESSABLE_ENTITY) {
         this.$store.commit('message/setErrorContent', {
           errorContent: "グループの作成に失敗しました",
           timeout: 6000
@@ -59,13 +59,11 @@ export default {
         this.errors = response.data.errors
         return false
       }
-      else {
-        this.$store.commit('message/setErrorContent', {
-          errorContent: "グループの作成に失敗しました",
-          timeout: 6000
-        })
-        this.$store.commit('error/setCode', response.status)
-      }
+      this.$router.push(`/mypage/${ this.id }/groups`)
+      this.$store.commit('message/setSuccessContent',{
+        successContent: 'グループの作成に成功しました',
+        timeout: 6000
+      })
     }
   }
 }

@@ -30,7 +30,7 @@ class ProfileController extends Controller
         $my_profile->introduction = $request->introduction;
         $user = Auth::user();
         $user->profiles()->save($my_profile);
-        return response($user, 201);
+        return $user;
     }
 
     //マイプロフィール詳細表示
@@ -45,7 +45,7 @@ class ProfileController extends Controller
     {
         $profile = $user->profiles()->first();
 
-        //画像が送られてきた場合のみ画像の処理をする
+        //画像編集処理
         if ($request->photo) {
             $extension = $request->photo->extension();
 
@@ -55,7 +55,6 @@ class ProfileController extends Controller
             // 本来の拡張子を組み合わせてファイル名とする
             $profile_photo->filename = $profile_photo->random_id . '.' . $extension;
 
-            // S3にファイルを保存する
             $profile_photo->filename = Storage::cloud()->putFileAs('vue', $request->photo, $profile_photo->filename, 'public');
 
             // データベースエラー時にファイル削除を行うため
@@ -88,29 +87,26 @@ class ProfileController extends Controller
     public function addMyComment(User $user, StoreComment $request)
     {
         // コメントしたプロフィールを取得
-        $activeProfile = $user->profiles()->first();
-        // コメントを受けた側のプロフィールをわかりやすいように変換
-        $passiveProfile = $activeProfile;
+        $active_profile = $user->profiles()->first();
+        // コメントを受けた側とした側は同じ
+        $passive_profile = $activeProfile;
 
         $comment = new Comment();
         $comment->content = $request->get('content');
         // まずはコメントした側のプロフィール情報を保存
-        $comment->active_profile_id = $activeProfile->id;
+        $comment->active_profile_id = $active_profile->id;
         // 親から子へのリレーションの保存の仕方でなければならない
         // 次はコメントを受けた側のプロフィールをさらに紐付けてそのコメントを保存
-        $passiveProfile->comments()->save($comment);
+        $passive_profile->comments()->save($comment);
 
-        //コメントしたプロフィールに紐づくコメントデータをその各ユーザーもまとめて取得する
-        $new_comments = Comment::where('passive_profile_id', $passiveProfile->id)->with(['author', 'likes'])->get();
+        $new_comments = Comment::where('passive_profile_id', $passive_profile)->with(['author', 'likes'])->get();
         return $new_comments;
     }
 
     // いいね付与（マイページ）
     public function myLike(User $user, Comment $comment)
     {
-        //まずいいねを押したプロフィールのオブジェクトを取得
         $profile = $user->profiles()->first();
-        //いいね押されたコメントをそのコメントのいいね情報も同時に引っ張ってくる
         $comment = Comment::where('id', $comment->id)->with('likes')->first();
 
         if (!$comment) {
@@ -124,19 +120,17 @@ class ProfileController extends Controller
         return ['comment_id' => $comment->id];
     }
 
-    // いいね削除（マイページ）
+    //いいね削除（マイページ）
     public function myUnlike(User $user, Comment $comment)
     {
-        //まずいいねを押したプロフィールのオブジェクトを取得
+
         $profile = $user->profiles()->first();
-        //いいね押されたコメントをそのコメントのいいね情報も同時に引っ張ってくる
         $comment = Comment::where('id', $comment->id)->with('likes')->first();
 
         if (!$comment) {
             abort(404);
         }
 
-        //いいねを削除
         $comment->likes()->detach($profile->id);
 
         return ['comment_id' => $comment->id];
@@ -145,7 +139,7 @@ class ProfileController extends Controller
     //プロフィール詳細表示処理
     public function showProfile(User $user, Group $group, Profile $profile)
     {
-        // profilesデーブルの中でクリックされたプロフィールデータを返す
+        //profilesデーブルの中でクリックされたプロフィールデータを返す
         $otherProfile = Profile::where('id', $profile->id)->with(['photos', 'comments', 'comments.author', 'comments.likes'])->first();
         return $otherProfile;
     }
@@ -153,21 +147,20 @@ class ProfileController extends Controller
     //コメントデータ保存
     public function addComment(User $user, Group $group, Profile $profile, StoreComment $request)
     {
-        // コメントしたプロフィールを取得
-        $activeProfile = Auth::user()->profiles()->first();
+        //コメントしたプロフィールを取得
+        $active_profile = $user->profiles()->first();
         // コメントを受けた側のプロフィールをわかりやすいように変換
-        $passiveProfile = $profile;
+        $passive_profile = $profile;
 
         $comment = new Comment();
         $comment->content = $request->get('content');
-        // まずはコメントした側のプロフィール情報を保存
-        $comment->active_profile_id = $activeProfile->id;
-        // 親から子へのリレーションの保存の仕方でなければならない
-        // 次はコメントを受けた側のプロフィールをさらに紐付けてそのコメントを保存
-        $passiveProfile->comments()->save($comment);
+        //まずはコメントした側のプロフィール情報を保存
+        $comment->active_profile_id = $active_profile->id;
+        //親から子へのリレーションの保存の仕方でなければならない
+        //次はコメントを受けた側のプロフィールをさらに紐付けてそのコメントを保存
+        $passive_profile->comments()->save($comment);
 
-        //コメントしたプロフィールに紐づくコメントデータをその各ユーザーもまとめて取得する
-        $new_comments = Comment::where('passive_profile_id', $passiveProfile->id)->with(['author', 'likes'])->get();
+        $new_comments = Comment::where('passive_profile_id', $passive_profile->id)->with(['author', 'likes'])->get();
         return $new_comments;
     }
 
@@ -176,7 +169,6 @@ class ProfileController extends Controller
     {
         //まずいいねを押したプロフィールのオブジェクトを取得
         $profile = $user->profiles()->first();
-        //いいね押されたコメントとそのコメントのいいね情報も同時に引っ張ってくる
         $comment = Comment::where('id', $comment->id)->with('likes')->first();
 
         if (!$comment) {
@@ -190,19 +182,17 @@ class ProfileController extends Controller
         return ['comment_id' => $comment->id];
     }
 
-    //likesテーブルにいいね情報(いいね押した側と押された側の情報)を保存
+    //いいね削除
     public function unlike(User $user, Group $group, Profile $profile, Comment $comment)
     {
         //まずいいねを押したプロフィールのオブジェクトを取得
         $profile = $user->profiles()->first();
-        //いいね押されたコメントをそのコメントのいいね情報も同時に引っ張ってくる
         $comment = Comment::where('id', $comment->id)->with('likes')->first();
 
         if (!$comment) {
             abort(404);
         }
 
-        //いいね情報を削除
         $comment->likes()->detach($profile->id);
 
         return ['comment_id' => $comment->id];
