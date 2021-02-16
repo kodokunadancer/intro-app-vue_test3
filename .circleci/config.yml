@@ -48,8 +48,8 @@ workfows:
     jobs:
       - test
       - deploy:
-         requires:
-           - test
-         filters:
-           branches:
-             oniy: master
+          requires:
+            - test
+          filters:
+            branches:
+              oniy: master
