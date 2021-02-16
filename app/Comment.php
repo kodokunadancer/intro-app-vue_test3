@@ -17,25 +17,38 @@ class Comment extends Model
       'id', 'content', 'author', 'likes', 'likes_count', 'liked_by_user',
     ];
 
-    //コメントを書いた人をたどる
+    /**
+     * リレーションシップ - profilesテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function author()
     {
         return $this->belongsTo('App\Profile', 'active_profile_id', 'id', 'profiles');
     }
 
-    //いいねを押した人をたどる
+    /**
+     * リレーションシップ - profilesテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
     public function likes()
     {
         return $this->belongsToMany('App\Profile', 'likes')->withTimestamps();
     }
 
-    //そのコメントいくついいねがついているカウント
+    /**
+     * アクセサ - likes_count
+     * @return integer
+     */
     public function getLikesCountAttribute()
     {
         return $this->likes->count();
     }
 
-    //そのコメントにログインユーザー（プロフィール）がすでにいいねをおしているかチェック（真偽値が返る）
+    /**
+     * そのコメントにログインユーザー（プロフィール）がすでにいいねをおしているかチェック
+     * アクセサ - liked_by_user
+     * @return boolean
+     */
     public function getLikedByUserAttribute()
     {
         if (Auth::guest()) {

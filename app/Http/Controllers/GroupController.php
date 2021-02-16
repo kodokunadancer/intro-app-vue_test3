@@ -4,47 +4,54 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-//モデル
 use App\Group;
+use Illuminate\Http\Request;
 use App\Http\Requests\CreateGroup;
 use App\Http\Requests\EditGroup;
 use App\Http\Requests\ReserchGroup;
-//フォームリクエスト
 use App\Photo;
 use App\Profile;
 use App\User;
-//ファイル処理
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-//Authクラス
 use Illuminate\Support\Facades\Storage;
 
 //Gateクラス
 
 class GroupController extends Controller
 {
-    //該当グループ取得
+    /**
+     * グループ取得.
+     * @param Group $group
+     * @return Group
+     */
     public function getGroup(Group $group)
     {
         $editGroup = Group::where('id', $group->id)->with('photo')->first();
         return $editGroup;
     }
 
-    //グループ作成処理
+    /**
+     * グループ作成.
+     * @param User $user
+     * @param CreateGroup $request
+     * @return \Illuminate\Http\Response
+     */
     public function create(User $user, CreateGroup $request)
     {
         $group = new Group();
         $group->name = $request->name;
         $group->password = $group->password;
-        $group->author_id = $user->id;
-        $group->save();
-
-        $user->groups()->attach($group);
-
-        return $group;
+        $user->groups()->save($group);
+        $user->groupUser()->attach($group);
+        return response($group, 201);
     }
 
-    //グループ検索処理
+    /**
+     * グループ検索.
+     * @param User $user
+     * @param ReserchGroup $request
+     * @return Group
+     */
     public function reserch(User $user, ReserchGroup $request)
     {
         $group = Group::where([
@@ -52,37 +59,60 @@ class GroupController extends Controller
         ['password', $request->password],
       ])->with('photo')->first();
 
-        if ($group) {
-            return $group;
+        $groups = $user->groups()->get()->all();
+        $id_array = array_column($groups, 'id');
+
+        //検索したグループが存在しない場合
+        if (!$group) {
+            return response(['error' => 'NotGroup'], 400);
         }
-        return false;
+        //すでに参加している場合
+        elseif (in_array($group->id, $id_array)) {
+            return response(['error' => 'Participated'], 400);
+        }
+        return $group;
     }
 
-    //グループ参加処理
+    /**
+     * グループ参加.
+     * @param User  $user
+     * @param Group $group
+     * @return \Illuminate\Http\Response
+     */
     public function join(User $user, Group $group)
     {
         //ユーザーとグループの紐付きを中間テーブルに保存する
         //すでに同じグループに参加している場合は、ロールバックする
         try {
-            $user->groups()->attach($group);
-            return $group;
+            $user->groupUser()->attach($group);
+            return response($group, 201);
         } catch (\Exception $exception) {
             DB::rollback();
             throw $exception;
         }
     }
 
-    //グループ一覧
+    /**
+     * グループ一覧.
+     * @param User $user
+     * @return Group
+     */
     public function index(User $user)
     {
         if ($user->groups) {
-            $my_groups = $user->groups()->with('photo')->get();
+            $my_groups = $user->groupUser()->with('photo')->get();
             return $my_groups;
         }
         return false;
     }
 
-    //グループ編集処理
+    /**
+     * グループ編集.
+     * @param User      $user
+     * @param Group     $group
+     * @param EditGroup $request
+     * @return \Illuminate\Http\Response
+     */
     public function edit(User $user, Group $group, EditGroup $request)
     {
         if ($request->photo) {
@@ -115,10 +145,15 @@ class GroupController extends Controller
         $group->name = $request->name;
         $group->save();
 
-        return response(201);
+        return response($group, 201);
     }
 
-    //グループ詳細
+    /**
+     * グループ詳細.
+     * @param User  $user
+     * @param Group $group
+     * @return array
+     */
     public function show(User $user, Group $group)
     {
         // 参加するグループと紐付いている複数のユーザーを配列に格納
@@ -141,25 +176,41 @@ class GroupController extends Controller
         return [$group, $my_profile, $profiles];
     }
 
-    //グループから退会
+    /**
+     * グループ退会.
+     * @param User  $user
+     * @param Group $group
+     * @return \Illuminate\Http\Response
+     */
     public function exit(User $user, Group $group)
     {
         $group->users()->detach($user);
-        return response(200);
+        return false;
     }
 
-    //グループの削除
+    /**
+     * グループ削除.
+     * @param User  $user
+     * @param Group $group
+     * @return \Illuminate\Http\Response
+     */
     public function delete(User $user, Group $group)
     {
         $group->delete();
-        return response(200);
+        return false;
     }
 
-    //グループから強制退会
+    /**
+     * グループから強制退会.
+     * @param User    $user
+     * @param Group   $group
+     * @param Profile $profile
+     * @return \Illuminate\Http\Response
+     */
     public function force(User $user, Group $group, Profile $profile)
     {
         $exit_user = $profile->owner()->first();
         $group->users()->detach($exit_user);
-        return response(200);
+        return false;
     }
 }

@@ -6,20 +6,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfilesTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) :void {
+        Schema::create('groups', function (Blueprint $table): void {
             $table->id();
-            $table->unsignedInteger('user_id');
             $table->string('name');
-            $table->text('introduction');
+            $table->string('password');
+            $table->foreignId('author_id')->constrained('users');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateProfilesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('groups');
     }
 }

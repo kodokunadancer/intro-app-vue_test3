@@ -6,20 +6,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupsTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table): void {
+        Schema::create('comments', function (Blueprint $table): void {
             $table->id();
-            $table->string('name');
-            $table->string('password');
-            $table->unsignedInteger('author_id');
+            $table->foreignId('active_profile_id')->constrained('profiles');
+            $table->foreignId('passive_profile_id')->constrained('profiles');
+            $table->text('content');
             $table->timestamps();
-            $table->foreign('author_id')->references('id')->on('users');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateGroupsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('comments');
     }
 }

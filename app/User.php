@@ -39,11 +39,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * リレーションシップ - groupsテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
     public function groups()
+    {
+        return $this->hasMany('App\Group', 'author_id', 'id', 'groups');
+    }
+
+    /**
+     * リレーションシップ - groupsテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function groupUser()
     {
         return $this->belongsToMany('App\Group');
     }
 
+    /**
+     * リレーションシップ - profilesテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
     public function profiles()
     {
         return $this->hasMany('App\Profile');

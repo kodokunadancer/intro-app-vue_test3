@@ -10,12 +10,8 @@ use Illuminate\Support\Str;
 $factory->define(App\Photo::class, function (Faker $faker) {
     return [
         'random_id' => Str::random(12),
-        'profile_id' => function() {
-          return factory(App\Profile::class)->create()->id;
-        },
-        'group_id' => function() {
-          return factory(App\Group::class)->create()->id;
-        },
+        'profile_id' => fn() => factory(App\Profile::class)->create()->id,
+        'group_id' => fn() => factory(App\Group::class)->create()->id,
         'filename' => Str::random(12) . '.jpg',
         'created_at' => $faker->dateTime(),
         'updated_at' => $faker->dateTime(),

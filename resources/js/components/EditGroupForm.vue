@@ -177,6 +177,7 @@ export default {
 
       formData.append('name', this.text.name)
 
+      //グループ編集
       const response = await axios.post(`/api/mypage/${ this.id }/groups/${ this.group }/edit`, formData)
 
       this.loading = false
@@ -193,7 +194,7 @@ export default {
 
       this.reset()
 
-      if(response.status !== OK) {
+      if(response.status !== CREATED) {
         this.$store.commit('error/setCode', response.status)
         this.$store.commit('message/setErrorContent', {
           errorContent: "グループの編集に失敗しました",

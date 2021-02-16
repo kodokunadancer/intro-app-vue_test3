@@ -27,13 +27,13 @@ class CreateGroup extends FormRequest
     {
         return [
              'name' => 'required|max:20',
-         ];
+        ];
     }
 
     public function attributes()
     {
         return [
-         'name' => 'グループ名',
-       ];
+            'name' => 'グループ名',
+        ];
     }
 }

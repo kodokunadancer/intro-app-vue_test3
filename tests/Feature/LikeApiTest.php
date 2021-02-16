@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
-use App\User;
+use App\Comment;
 use App\Group;
 use App\Profile;
-use App\Comment;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class LikeApiTest extends TestCase
 {
@@ -29,8 +30,9 @@ class LikeApiTest extends TestCase
 
     /**
      * @test
+     * 正常系テスト
      */
-    public function should_いいねを追加できる()
+    public function should_いいねを追加できる(): void
     {
         $response = $this->actingAs($this->user)
             ->json('PUT', route('like.comment', [
@@ -40,20 +42,44 @@ class LikeApiTest extends TestCase
                 'comment' => $this->comment->id,
             ]));
 
-        $response->assertStatus(200);
-            // ->assertJsonFragment([
-            //     'comment_id' => $this->comment->id,
-            // ]);
+        $response->assertStatus(200)
+            ->assertJsonFragment([
+              'comment_id' => $this->comment->id,
+          ]);
 
-        //DBにいいねが登録されているか
-        //つまり写真データに紐づくいいね数が１であるかどうか
         $this->assertEquals(1, $this->comment->likes()->count());
     }
 
     /**
      * @test
+     * 正常系テスト
      */
-    public function should_2回同じ写真にいいねしても1個しかいいねがつかない()
+    public function should_いいねを解除できる(): void
+    {
+        //あらかじめいいねしてある状態にしておく
+        $this->comment->likes()->attach($this->active_profile);
+
+        $response = $this->actingAs($this->user)
+            ->json('DELETE', route('like.comment', [
+              'user' => $this->user->id,
+              'group' => $this->group->id,
+              'profile' => $this->passive_profile->id,
+              'comment' => $this->comment->id,
+            ]));
+
+        $response->assertStatus(200)
+            ->assertJsonFragment([
+              'comment_id' => $this->comment->id,
+          ]);
+
+        $this->assertEquals(0, $this->comment->likes()->count());
+    }
+
+    /**
+     * @test
+     * 異常系テスト
+     */
+    public function should_2回同じ写真にいいねしても1個しかいいねがつかない(): void
     {
         $param = [
           'user' => $this->user->id,
@@ -66,33 +92,5 @@ class LikeApiTest extends TestCase
         $this->actingAs($this->user)->json('PUT', route('like.comment', $param));
 
         $this->assertEquals(1, $this->comment->likes()->count());
-    }
-
-    /**
-     * @test
-     */
-    public function should_いいねを解除できる()
-    {
-        //あらかじめいいねしてある状態にしておく
-        $this->comment->likes()->attach($this->active_profile);
-
-        //非同期でいいね削除処理をさせる
-        $response = $this->actingAs($this->user)
-            ->json('DELETE', route('like.comment', [
-              'user' => $this->user->id,
-              'group' => $this->group->id,
-              'profile' => $this->passive_profile->id,
-              'comment' => $this->comment->id,
-            ]));
-
-        //JSONレスポンスに期待するデータが存在するか
-        $response->assertStatus(200);
-            // ->assertJsonFragment([
-            //     'comment_id' => $comment->id,
-            // ]);
-
-        //DBにダミー写真にいいねが付与されていないか
-        //つまり写真データに紐づくいいね数が 0 であるかどうか
-        $this->assertEquals(0, $this->comment->likes()->count());
     }
 }

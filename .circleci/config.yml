@@ -1,9 +1,14 @@
-version: 2
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@0.0.2
+  aws-ecs: circleci/aws-ecs@0.0.10
+
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/php:7.3-node-browsers
-    working_directory: ~/intro-app-vue_test2
+    working_directory: ~/intro-app
     steps:
       - checkout
       - run:
@@ -23,3 +28,28 @@ jobs:
       - run:
           name: Run PHPUnit
           command: vendor/bin/phpunit
+
+  deploy:
+    - aws_ecr/build_and_push_image:
+        account_url: AWS_ECR_ACCOUNT_URL
+        repo: intro-app_circleci_test
+        tag: '${CIRCLE_SHA1}'
+
+    - aws_ecs/deploy_service_update:
+        requires:
+          - aws_ecr/build_and_push_image
+        family: 'intro-app'
+        cluster-name: 'intro-app'
+        service-name: 'intro-app'
+        container-image-name-updates: 'container=intro-app,image-and-tag=AWS_ECR_ACCOUNT_URL/intro-app_circleci_test:${CIRCLE_SHA1}'
+
+workfows:
+  test_and_deploy:
+    jobs:
+      - test
+      - deploy:
+         requires:
+           - test
+         filters:
+           branches:
+             oniy: master

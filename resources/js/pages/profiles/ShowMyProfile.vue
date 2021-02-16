@@ -122,7 +122,7 @@ export default {
       this.commentContent = ''
       this.commentErrors = null
 
-      if(response.status !== OK) {
+      if(response.status !== CREATED) {
         this.$store.commit('message/setErrorContent', {
           errorContent: "コメントの投稿に失敗しました",
           timeout: 6000

@@ -16,8 +16,6 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    //モデルとポリシーを紐付ける
-    //Groupモデルに対する処理への認可には、GroupPolicyを使用するということ
     protected $policies = [
         'App\User' => 'App\Policies\EditProfilePolicy',
         'App\Group' => 'App\Policies\GroupPolicy',
@@ -33,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
        Gate::define('admin', function($user, $group) {
-         return $user->id === $group->author_id;
+         return $user->id == $group->author_id;
        });
     }
 }

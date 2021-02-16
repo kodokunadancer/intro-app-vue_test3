@@ -58,7 +58,7 @@
 
 <script>
 
-import { OK, CREATED, UNPROCESSABLE_ENTITY } from '../util.js'
+import { CREATED, UNPROCESSABLE_ENTITY } from '../util.js'
 import Loader from './Loader.vue'
 import { mapState } from 'vuex'
 
@@ -97,7 +97,7 @@ export default {
     }
   },
   methods: {
-    
+
     //フォームでファイルが選択されたら実行
     onFileChange(event) {
 
@@ -197,7 +197,7 @@ export default {
 
       this.reset()
 
-      if(response.status !== OK) {
+      if(response.status !== CREATED) {
         this.$store.commit('message/setErrorContent', {
           errorContent: "プロフィールの編集に失敗しました",
           timeout: 6000
@@ -206,7 +206,7 @@ export default {
         return false
       }
 
-      this.cancel
+      this.cancel()
       this.$store.commit('message/setSuccessContent', {
         successContent: "プロフィールの編集に成功しました",
         timeout: 6000

@@ -26,7 +26,7 @@ class EditProfile extends FormRequest
     public function rules()
     {
         return [
-             'photo' => 'file|mimes:jpg,jpeg,png,gif,hric',
+             'photo' => 'file|mimes:jpg,jpeg,png,gif,heic',
              'textName' => 'required|max:20',
              'textIntroduction' => 'required|max:500',
          ];

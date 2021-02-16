@@ -15,12 +15,10 @@ class CreatePhotosTable extends Migration
     {
         Schema::create('photos', function (Blueprint $table): void {
             $table->string('random_id')->primary();
-            $table->unsignedInteger('profile_id')->nullable();
-            $table->unsignedInteger('group_id')->nullable();
+            $table->foreignId('profile_id')->nullable()->constrained();
+            $table->foreignId('group_id')->nullable()->constrained();
             $table->string('filename');
             $table->timestamps();
-            $table->foreign('profile_id')->references('id')->on('profiles');
-            $table->foreign('group_id')->references('id')->on('groups');
         });
     }
 

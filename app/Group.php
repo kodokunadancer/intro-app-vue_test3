@@ -3,20 +3,20 @@
 declare(strict_types=1);
 
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-//Arrクラスを使用するため
 use Illuminate\Support\Arr;
 
 class Group extends Model
 {
+    protected $visible = [
+        'id', 'name', 'password', 'author_id', 'photo', 'users', 'author',
+    ];
+
     const PASSWORD_LENGTH = 6;
 
-    protected $visible = [
-    'id', 'name', 'password', 'author_id', 'photo', 'users',
-  ];
-
-    //引数でpasswordの値を受け取る
+    /**
+     * 引数でランダムなパスワードを受け取る
+     */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -26,22 +26,18 @@ class Group extends Model
         }
     }
 
-    public function photo()
-    {
-        return $this->hasOne('App\Photo');
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany('App\User');
-    }
-
+    /**
+     * ランダムなpasswordをpassword属性に代入する
+     */
     private function setPassword(): void
     {
         $this->attributes['password'] = $this->getRandomPassword();
     }
 
-    //実際にパスワード生成処理
+    /**
+     * ランダムなpasswordを生成する
+     * @return string
+     */
     private function getRandomPassword()
     {
         //使用する文字列の用意
@@ -65,4 +61,32 @@ class Group extends Model
 
         return $password;
     }
+
+    /**
+    * リレーションシップ - phptosテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\hasOne
+     */
+    public function photo()
+    {
+        return $this->hasOne('App\Photo');
+    }
+
+    /**
+     * リレーションシップ - usersテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
+    /**
+     * リレーションシップ - usersテーブル
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo('App\User', 'author_id', 'users');
+    }
+
 }

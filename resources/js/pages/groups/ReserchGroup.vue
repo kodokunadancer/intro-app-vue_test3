@@ -56,7 +56,7 @@
 
 <script>
 
-import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR } from '../../util.js'
+import { OK, CREATED, BAD_REQUEST, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR } from '../../util.js'
 
 export default {
 
@@ -81,35 +81,40 @@ export default {
     //グループ検索処理
     async reserch() {
       const response = await axios.post(`/api/mypage/${ this.id }/groups/reserch`, this.reserchForm)
-      if( response.status === OK) {
-        if(response.data) {
-          this.group = response.data
-          return false
-        }
-        return this.reserchError = 'グループ名とパスワードが一致するグループを見つけられませんでした'
-      }
       if( response.status === UNPROCESSABLE_ENTITY) {
         this.errors = response.data.errors
         return false
       }
-      this.$store.commit('error/setCode', response.status)
+      if( response.status === BAD_REQUEST ) {
+        if (response.data['error'] === 'NotGroup') {
+          return this.reserchError = 'グループ名とパスワードが一致するグループを見つけられませんでした'
+        }
+        else if( response.data['error'] === 'Participated') {
+          return this.reserchError = '検索したグループにはすでに参加されています。'
+        }
+      }
+      if( response.status !== OK) {
+        this.$store.commit('error/setCode', response.status)
+        return false
+      }
+      this.group = response.data
     },
     //グループ参加処理
     async join() {
       const response = await axios.get(`/api/mypage/${ this.id }/groups/${ this.group.id }/join`)
-      if( response.status === OK) {
-        this.$router.push(`/mypage/${ this.id }/groups`)
-        this.$store.commit('message/setSuccessContent', {
-          successContent: `${ this.group.name }の参加に成功しました`,
+      if( response.status !== CREATED) {
+        this.$store.commit('message/setErrorContent', {
+          errorContent: "グループの参加に失敗しました",
           timeout: 6000
         })
+        this.$store.commit('error/setCode', response.status)
         return false
       }
-      this.$store.commit('message/setErrorContent', {
-        errorContent: "グループの参加に失敗しました",
+      this.$router.push(`/mypage/${ this.id }/groups`)
+      this.$store.commit('message/setSuccessContent', {
+        successContent: `${ this.group.name }の参加に成功しました`,
         timeout: 6000
       })
-      this.$store.commit('error/setCode', response.status)
     }
   }
 }

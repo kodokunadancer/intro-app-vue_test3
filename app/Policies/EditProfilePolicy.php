@@ -12,15 +12,14 @@ class EditProfilePolicy
     use HandlesAuthorization;
 
     /**
-     * Create a new policy instance.
+     * ログインユーザーのみがプロフィールを作成できる
+     *
+     * @param User $user
+     * @return mixed
      */
-    public function __construct()
-    {
-    }
-
     public function view(User $user)
     {
         $profile = $user->profiles()->first();
-        return $user->id === $profile->user_id;
+        return $user->id == $profile->user_id;
     }
 }

@@ -20,6 +20,7 @@ class CreateProfileApiTest extends TestCase
 
     /**
      * @test
+     * 正常系テスト
      */
     public function should_プロフィール作成(): void
     {
@@ -29,18 +30,51 @@ class CreateProfileApiTest extends TestCase
        ];
         $response = $this->actingAs($this->user)->json('POST', route('create.profile'), $data);
 
-        $response->assertStatus(200);
-            // ->assertJsonFragment([
-            //         'owner' => [
-            //           'name' => $this->user->name,
-            //         ],
-            //         'introduction' => 'テストと申します！',
-            //     ]);
+        $response->assertStatus(201)
+            ->assertJsonFragment([
+                'name' => $this->user->name,
+            ]);
 
-        //登録したプロフィールデータを取得
         $profiles = $this->user->profiles()->get();
 
         $this->assertEquals(1, $profiles->count());
         $this->assertEquals('テスト', $profiles[0]->name);
+    }
+
+    /**
+     * @test
+     * 異常系テスト
+     */
+    public function should_何も入力せずに送信した場合エラーテキストを返す(): void
+    {
+        $response = $this->actingAs($this->user)->json('POST', route('create.profile'));
+        $response->assertStatus(422)
+            ->assertJsonFragment([
+                 'errors' => [
+                     'name' => ['名前は必ず指定してください。'],
+                     'introduction' => ['自己紹介は必ず指定してください。'],
+                  ],
+             ]);
+    }
+
+    /**
+     * @test
+     * 異常系テスト
+     */
+    public function should_文字数オーバーした場合エラーテキストを返す(): void
+    {
+        $data = [
+            'name' => str_repeat('a', 21),
+            'introduction' => str_repeat('a', 501),
+          ];
+
+        $response = $this->actingAs($this->user)->json('POST', route('create.profile'), $data);
+        $response->assertStatus(422)
+            ->assertJsonFragment([
+                  'errors' => [
+                      'name' => ['名前は、20文字以下で指定してください。'],
+                      'introduction' => ['自己紹介は、500文字以下で指定してください。'],
+                   ],
+              ]);
     }
 }

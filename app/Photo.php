@@ -5,18 +5,11 @@ declare(strict_types=1);
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-//Arrクラスを使用するため
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 class Photo extends Model
 {
-    const ID_LENGTH = 12;
-
-    public $incrementing = false;
-
-    protected $primaryKey = 'random_id';
-
     protected $appends = [
       'url',
     ];
@@ -27,7 +20,15 @@ class Photo extends Model
 
     protected $kyeType = 'string';
 
-    //引数でpasswordの値を受け取る
+    public $incrementing = false;
+
+    protected $primaryKey = 'random_id';
+
+    const ID_LENGTH = 12;
+
+    /**
+     * 引数でランダムなrandom_idを受け取る
+     */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -37,17 +38,18 @@ class Photo extends Model
         }
     }
 
-    public function getUrlAttribute()
-    {
-        return Storage::cloud()->url($this->attributes['filename']);
-    }
-
+    /**
+     * random_idをrandom_id属性に代入する
+     */
     private function setId(): void
     {
         $this->attributes['random_id'] = $this->getRandomId();
     }
 
-    //実際にパスワード生成処理
+    /**
+     * ランダムなidを生成する
+     * @return string
+     */
     private function getRandomId()
     {
         //使用する文字列の用意
@@ -70,5 +72,14 @@ class Photo extends Model
         }
 
         return $random_id;
+    }
+
+    /**
+     * アクセサ - url
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return Storage::cloud()->url($this->attributes['filename']);
     }
 }

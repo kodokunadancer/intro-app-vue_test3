@@ -6,20 +6,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLikesTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('likes', function (Blueprint $table): void {
+        Schema::create('profiles', function (Blueprint $table) :void {
             $table->id();
-            $table->unsignedInteger('profile_id');
-            $table->unsignedInteger('comment_id');
+            $table->foreignId('user_id')->constrained();
+            $table->string('name');
+            $table->text('introduction');
             $table->timestamps();
-            $table->foreign('profile_id')->references('id')->on('profiles');
-            $table->foreign('comment_id')->references('id')->on('comments');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateLikesTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('profiles');
     }
 }
