@@ -54,6 +54,7 @@ class GroupListApiTest extends TestCase
 
         //以下から検証
         $response
+            ->dump()
             ->assertStatus(200)
             ->assertJsonCount(5)
             ->assertExactJson($expended_data);
