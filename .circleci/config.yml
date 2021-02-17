@@ -7,7 +7,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: circleci/php:7.3-node-browsers
+      - image: circleci/php:7.4.5-node-browsers
     working_directory: ~/intro-app
     steps:
       - checkout
