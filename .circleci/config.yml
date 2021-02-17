@@ -50,6 +50,8 @@ workflows:
             - test
           region: AWS_REGION
           account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           repo: intro-app_circleci_test
           tag: '${CIRCLE_SHA1}'
       - aws-ecs/deploy-service-update:
