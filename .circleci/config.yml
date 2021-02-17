@@ -48,6 +48,8 @@ workflows:
       - aws-ecr/build-and-push-image:
           requires:
             - test
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
           repo: intro-app_circleci_test
           tag: '${CIRCLE_SHA1}'
       - aws-ecs/deploy-service-update:
