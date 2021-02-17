@@ -26,6 +26,9 @@ jobs:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
       - run:
+          name: Decode dotenv file
+          command: echo $ENV_FILE | base64 --decode > .env
+      - run:
           name: Run PHPUnit
           command: vendor/bin/phpunit
 
