@@ -51,6 +51,7 @@ workflows:
           context: AWS_ECR_ECS
           repo: intro-app_circleci_test
           tag: '${CIRCLE_SHA1}'
+          dockerfile: Dockerfile
           path: ./Docker
       - aws-ecs/deploy-service-update:
           requires:
