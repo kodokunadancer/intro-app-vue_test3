@@ -13,7 +13,6 @@ RUN apt-get update \
   && : 'Install Composer' \
   && chmod 755 /install-composer.sh \
   && /install-composer.sh \
-  && mv composer.phar /usr/local/bin/composer \
 
 COPY . .
 
