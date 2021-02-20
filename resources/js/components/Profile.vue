@@ -15,7 +15,7 @@
           <img :src="profile.photos[0].url">
         </div>
         <div v-else class="profile-panel__photo">
-          <img src="https://introductionapp.s3-ap-northeast-1.amazonaws.com/vue/profile_img.png">
+          <img src="https://introduction-app.s3-ap-northeast-1.amazonaws.com/profiles/profile_img.png">
         </div>
         <!-- プロフィール名 -->
         <div class="profile-panel__name"><span class="profile-name__text">{{ profile.name }}</span></div>

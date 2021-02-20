@@ -37,7 +37,7 @@
             <img :src="editGroup.photo.url">
           </div>
           <div class="form-photo-img" v-else>
-            <img src="https://introductionapp.s3-ap-northeast-1.amazonaws.com/vue/group_img.png">
+            <img src="https://introduction-app.s3-ap-northeast-1.amazonaws.com/groups/group_img.png">
           </div>
         </div>
       </div>

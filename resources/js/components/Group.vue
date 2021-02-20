@@ -40,7 +40,7 @@
           <img class="group-img" :src="group.photo.url">
         </div>
         <div class="group-panel__photo" v-else>
-          <img src="https://introductionapp.s3-ap-northeast-1.amazonaws.com/vue/group_img.png">
+          <img src="https://introduction-app.s3-ap-northeast-1.amazonaws.com/groups/group_img.png">
         </div>
         <!-- グループ名 -->
         <div class="group-panel__name">{{ group.name }}</div>

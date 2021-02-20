@@ -15,8 +15,6 @@ use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-//Gateクラス
-
 class GroupController extends Controller
 {
     /**
@@ -124,7 +122,7 @@ class GroupController extends Controller
             // 本来の拡張子を組み合わせてファイル名とする
             $group_photo->filename = $group_photo->random_id . '.' . $extension;
 
-            $group_photo->filename = Storage::cloud()->putFileAs('vue', $request->photo, $group_photo->filename, 'public');
+            $group_photo->filename = Storage::cloud()->putFileAs('groups', $request->photo, $group_photo->filename, 'public');
 
             // データベースエラー時にファイル削除を行うため
             // トランザクションを利用する

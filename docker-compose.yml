@@ -1,9 +1,0 @@
-version: '3'
-services:
-  intro-app:
-    build: .
-    volumes:
-      - ./web:/var/www/html/intro-app/web
-    ports:
-      - 8085:8085
-      - 3002:3002

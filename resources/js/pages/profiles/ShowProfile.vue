@@ -15,7 +15,7 @@
           <img :src="otherProfile.photos[0].url">
         </div>
         <div class="profile-photo__item" v-else>
-          <img src="https://introductionapp.s3-ap-northeast-1.amazonaws.com/vue/profile_img.png">
+          <img src="https://introduction-app.s3-ap-northeast-1.amazonaws.com/profiles/profile_img.png">
         </div>
       </div>
       <!-- 自己紹介 -->

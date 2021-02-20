@@ -66,7 +66,7 @@ class ProfileController extends Controller
             // 本来の拡張子を組み合わせてファイル名とする
             $profile_photo->filename = $profile_photo->random_id . '.' . $extension;
 
-            $profile_photo->filename = Storage::cloud()->putFileAs('vue', $request->photo, $profile_photo->filename, 'public');
+            $profile_photo->filename = Storage::cloud()->putFileAs('profiles', $request->photo, $profile_photo->filename, 'public');
 
             // データベースエラー時にファイル削除を行うため
             // トランザクションを利用する
